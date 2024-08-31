@@ -1,8 +1,11 @@
 
-**Vinci App 🚀**
+
+---
+
+# **Vinci App 🚀**
 
 **Overview:**
-Vinci App is an advanced web application developed during my internship at Vinci, under the guidance of Axians. It is designed to streamline the management of material stocks through two distinct user interfaces: Admin and User. The application leverages modern technologies and best practices to provide a robust and secure platform for inventory management.
+Vinci App is a modern web application developed during my internship at Vinci, under the guidance of Axians. It is designed to streamline the management of material stocks through two distinct user interfaces: Admin and User. The application combines a powerful back-end with a dynamic front-end to provide a comprehensive solution for inventory management.
 
 **Features 🎨**
 
@@ -19,15 +22,27 @@ Vinci App is an advanced web application developed during my internship at Vinci
 **Technologies Used 🛠️**
 
 - **Spring Boot 3.3.1** 🌟: The core framework for building the application's backend, providing a comprehensive suite of features for developing and running Java-based applications.
+
 - **Spring Security 6** 🔒: Ensures advanced security through authentication and authorization mechanisms, protecting both user data and application integrity.
+
 - **Hibernate ORM** 💾: Facilitates object-relational mapping for database interactions, allowing for efficient data handling and manipulation within the application.
+
 - **JPA (Java Persistence API)** 💾: Provides additional support for data persistence and mapping, working alongside Hibernate to manage database operations.
+
 - **DTO (Data Transfer Objects)** 📦: Facilitates efficient data transfer between different layers of the application, reducing overhead and improving performance.
+
 - **JWT (JSON Web Tokens)** 🗝️: Secures user sessions and API requests with token-based authentication, enhancing security and scalability.
+
 - **MySQL** 🗄️: The relational database management system used for storing and managing application data, offering reliability and performance.
+
 - **Tomcat Server** 🌐: The web server and servlet container used to deploy and run the Spring Boot application, providing a robust environment for handling HTTP requests and responses.
-- **HTML/CSS/JavaScript** 🌐: Technologies used to create a responsive and interactive front-end, ensuring a seamless user experience across various devices.
+
+- **React.js** ⚛️: The JavaScript library used for building the interactive and dynamic front-end interface. React.js provides a component-based architecture for creating reusable UI components and managing application state efficiently.
+
+- **HTML/CSS/JavaScript** 🌐: Technologies used alongside React.js to create a responsive and interactive front-end, ensuring a seamless user experience across various devices.
+
 - **API** 🔗: Exposes RESTful endpoints for interaction between the backend services and the front-end components, enabling smooth communication and data exchange.
+
 - **Docker** 🐳: Provides containerization to ensure consistent deployment and running of the application across different environments.
 
 **Installation 🛠️**
@@ -85,10 +100,23 @@ Vinci App is an advanced web application developed during my internship at Vinci
      docker-compose up --build
      ```
 
+5. **Run the React Front-End ⚛️**
+
+   - Navigate to the React project directory (e.g., `frontend/`).
+   - Install dependencies:
+     ```bash
+     npm install
+     ```
+   - Start the React development server:
+     ```bash
+     npm start
+     ```
+   - The React app will be available at [http://localhost:3000/](http://localhost:3000/).
+
 **Usage 🚀**
 
 - **Access the Application 🌐**
-  Open your web browser and go to [http://localhost:9092/](http://localhost:9092/) to access the application.
+  Open your web browser and go to [http://localhost:9092/](http://localhost:9092/) for the backend, and [http://localhost:3000/](http://localhost:3000/) for the front-end.
 
 - **Login 🔑**
   - **Admin:** Log in with admin credentials to access the admin dashboard for managing users, roles, and inventory.
@@ -116,4 +144,6 @@ For inquiries or support, please contact:
 
 - **Email:** Rhalimsami8.com
 - **Website:** [Axians Website](https://axians.com)
+
+---
 
