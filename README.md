@@ -20,10 +20,12 @@ Vinci App is an advanced web application developed during my internship at Vinci
 
 - **Spring Boot 3.3.1** 🌟: The core framework for building the application's backend, providing a comprehensive suite of features for developing and running Java-based applications.
 - **Spring Security 6** 🔒: Ensures advanced security through authentication and authorization mechanisms, protecting both user data and application integrity.
-- **JPA (Java Persistence API)** 💾: Manages database interactions using object-relational mapping, simplifying data handling and database operations.
+- **Hibernate ORM** 💾: Facilitates object-relational mapping for database interactions, allowing for efficient data handling and manipulation within the application.
+- **JPA (Java Persistence API)** 💾: Provides additional support for data persistence and mapping, working alongside Hibernate to manage database operations.
 - **DTO (Data Transfer Objects)** 📦: Facilitates efficient data transfer between different layers of the application, reducing overhead and improving performance.
 - **JWT (JSON Web Tokens)** 🗝️: Secures user sessions and API requests with token-based authentication, enhancing security and scalability.
 - **MySQL** 🗄️: The relational database management system used for storing and managing application data, offering reliability and performance.
+- **Tomcat Server** 🌐: The web server and servlet container used to deploy and run the Spring Boot application, providing a robust environment for handling HTTP requests and responses.
 - **HTML/CSS/JavaScript** 🌐: Technologies used to create a responsive and interactive front-end, ensuring a seamless user experience across various devices.
 - **API** 🔗: Exposes RESTful endpoints for interaction between the backend services and the front-end components, enabling smooth communication and data exchange.
 - **Docker** 🐳: Provides containerization to ensure consistent deployment and running of the application across different environments.
@@ -72,6 +74,10 @@ Vinci App is an advanced web application developed during my internship at Vinci
      ```bash
      mvn clean install
      ```
+     Run the application using Tomcat:
+     ```bash
+     mvn spring-boot:run
+     ```
 
    - **With Docker:**
      Build and run the application using Docker:
@@ -110,3 +116,4 @@ For inquiries or support, please contact:
 
 - **Email:** Rhalimsami8.com
 - **Website:** [Axians Website](https://axians.com)
+
