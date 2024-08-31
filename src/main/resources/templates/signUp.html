@@ -1,0 +1,377 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+  <title>VINCI ENERGIES REGISTRATION</title>
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/VinciLogo.png" type="image/x-icon">
+  <!-- Custom Css -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/style.min.css">
+  <style>
+    /* General body style */
+    body {
+      background: url('/assets/images/blue-aesthetic-5120x2880-18229.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Style for input fields */
+    input.form-control {
+      border: 1px solid #ced4da;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Highlight the input field with a red border if there is an error */
+    input.form-control.error {
+      border-color: red;
+      background-color: #f8d7da;
+    }
+
+    /* Highlight the input field with a green border if it is valid */
+    input.form-control.valid {
+      border-color: #28a745;
+      background-color: #d4edda;
+    }
+
+    /* File upload styling */
+    .custom-file-upload {
+      border: 2px dashed #007bff;
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      border-radius: 0.375rem;
+      background-color: #f8f9fa;
+      font-size: 1rem;
+      color: #007bff;
+      text-align: center;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      width: 100%;
+    }
+
+    .custom-file-upload:hover {
+      background-color: #e2e6ea;
+      border-color: #0056b3;
+    }
+
+    .custom-file-upload i {
+      margin-right: 0.5rem;
+    }
+
+    .custom-file-upload input[type="file"] {
+      display: none;
+    }
+
+    .file-name {
+      display: block;
+      margin-top: 0.5rem;
+      color: #495057;
+      font-size: 0.875rem;
+    }
+
+    /* Button styles */
+    .btn-primary {
+      background: #3b5998; /* Deep blue */
+      border: none;
+      color: white;
+      font-size: 1rem;
+      text-transform: uppercase;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    .btn-primary:disabled {
+      background: #c1c1c1;
+      cursor: not-allowed;
+    }
+
+    .btn-primary.wavy-button {
+      position: relative;
+      overflow: hidden;
+      background: #3b5998;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      text-transform: uppercase;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+    }
+
+    .btn-primary.wavy-button::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(45deg);
+      transition: all 0.75s ease-in-out;
+      z-index: 0;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.5) 75%);
+    }
+
+    .btn-primary.wavy-button:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary.wavy-button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Authentication container */
+    .authentication {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      backdrop-filter: blur(5px);
+    }
+
+    .auth_form {
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 0.5rem;
+    }
+
+    .header h5 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+
+    .input-group .form-control {
+      border-radius: 0.375rem;
+    }
+
+    .input-group-append .input-group-text {
+      border-radius: 0 0.375rem 0.375rem 0;
+      background-color: #e9ecef;
+    }
+
+    .input-group .input-group-text {
+      border: 1px solid #ced4da;
+    }
+
+    .input-group-text i {
+      color: #3b5998; /* Facebook blue color */
+    }
+
+    .error-message-container {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .btn {
+      width: 100%;
+    }
+
+    .signin_with {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .signin_with p {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body class="theme-blush">
+<div class="authentication">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-12">
+        <form id="registrationForm" class="card auth_form" th:action="@{/register}" method="post" enctype="multipart/form-data">
+          <div class="header">
+            <img class="logo" src="/assets/images/logovinci.png" alt="Vinci Logo">
+            <h5>Register</h5>
+          </div>
+          <div class="body">
+            <!-- Existing input fields -->
+            <div class="input-group mb-3">
+              <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="email" id="email" name="email" class="form-control" placeholder="Email exemple@exemple.xxx....">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone xxxxxxxxxx6">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" id="password" name="password" class="form-control" placeholder="Password with 6 char">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              </div>
+            </div>
+
+            <!-- Confirmation Password Field -->
+            <div class="input-group mb-3">
+              <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              </div>
+            </div>
+            <!-- File input with icon and filename display -->
+            <div class="input-group mb-3">
+              <label class="custom-file-upload">
+                <i class="fas fa-upload"></i> Choose File
+                <input type="file" id="profilePicture" name="adminPicture" required>
+              </label>
+              <span id="fileName" class="file-name">No file chosen!</span>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" id="submitButton" class="btn btn-primary wavy-button">Register</button>
+
+            <!-- Sign In link -->
+            <div class="signin_with">
+              <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-8 col-sm-12">
+        <div class="card">
+          <img src="/assets/images/signup.svg" alt="Sign In"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/script.min.js"></script>
+<script>
+  $(document).ready(function () {
+    function validateForm() {
+      let valid = true;
+
+      // Email regex for validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Phone number regex for validation (at least 6 digits)
+      const phoneRegex = /^\d{6,}$/;
+
+      // Password length validation (at least 6 characters)
+      const minPasswordLength = 6;
+
+      // Check username
+      if ($('#username').val().trim() === '') {
+        $('#username').addClass('error').removeClass('valid');
+        valid = false;
+      } else {
+        $('#username').removeClass('error').addClass('valid');
+      }
+
+      // Check email
+      const email = $('#email').val().trim();
+      if (!emailRegex.test(email)) {
+        $('#email').addClass('error').removeClass('valid');
+        valid = false;
+      } else {
+        $('#email').removeClass('error').addClass('valid');
+      }
+
+      // Check phone number
+      const phone = $('#phone').val().trim();
+      if (!phoneRegex.test(phone)) {
+        $('#phone').addClass('error').removeClass('valid');
+        valid = false;
+      } else {
+        $('#phone').removeClass('error').addClass('valid');
+      }
+
+      // Check password
+      const password = $('#password').val().trim();
+      if (password.length < minPasswordLength) {
+        $('#password').addClass('error').removeClass('valid');
+        valid = false;
+      } else {
+        $('#password').removeClass('error').addClass('valid');
+      }
+
+      // Check confirm password
+      const confirmPassword = $('#confirmPassword').val().trim();
+      if (confirmPassword.length < minPasswordLength) {
+        $('#confirmPassword').addClass('error').removeClass('valid');
+        valid = false;
+      } else if (password !== confirmPassword) {
+        $('#confirmPassword').addClass('error').removeClass('valid');
+        valid = false;
+      } else {
+        $('#confirmPassword').removeClass('error').addClass('valid');
+      }
+
+      // Check if profile picture is selected
+      if ($('#profilePicture').val() === '') {
+        $('#profilePicture').addClass('error').removeClass('valid');
+        valid = false;
+      } else {
+        $('#profilePicture').removeClass('error').addClass('valid');
+      }
+
+      // Enable or disable submit button
+      $('#submitButton').prop('disabled', !valid);
+
+      return valid;
+    }
+
+    // Validate form on input change
+    $('#registrationForm input').on('input change', function () {
+      validateForm();
+    });
+
+    // Validate file input
+    $('#profilePicture').on('change', function () {
+      validateForm();
+      // Display selected file name
+      let fileName = $(this).val().split('\\').pop();
+      $('#fileName').text(fileName || 'No file chosen');
+    });
+
+    // Initial validation on page load
+    validateForm();
+  });
+</script>
+
+</body>
+</html>

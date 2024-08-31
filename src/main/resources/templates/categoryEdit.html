@@ -1,0 +1,847 @@
+<!doctype html>
+<html class="no-js " lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+  <title>VINCI ENERGIES || ADMIN SIDE</title>
+  <link rel="icon" href="/assets/images/VinciLogo.png" type="image/x-icon"> <!-- Favicon-->
+  <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
+  <link rel="stylesheet" href="/assets/plugins/charts-c3/plugin.css"/>
+  <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.min.css" />
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/assets/css/style.min.css">
+  <style>
+
+    .input-field {
+      border: 2px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-field.error {
+      border-color: #e74c3c; /* Red for error */
+    }
+
+    .input-field.success {
+      border-color: #2ecc71; /* Green for success */
+    }
+
+    .form-text {
+      color: #e74c3c; /* Red color for error messages */
+    }
+
+    .form-text.success {
+      color: #2ecc71; /* Green color for success messages */
+    }
+
+
+
+
+
+
+
+
+    @keyframes wave {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .wavy-error {
+      border-color: red;
+      animation: wave 0.5s ease-in-out infinite;
+    }
+
+
+
+
+
+
+
+
+    .ultra-purple-wavy-btn {
+      background: linear-gradient(90deg, #8e44ad, #c0392b);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .ultra-purple-wavy-btn:hover {
+      background: linear-gradient(90deg, #c0392b, #8e44ad);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
+    }
+
+    .ultra-purple-wavy-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%);
+      transition: all 0.5s ease;
+    }
+
+    .ultra-purple-wavy-btn:hover::before {
+      left: 0;
+    }
+
+    @keyframes wave {
+      0% {
+        transform: translateX(0%);
+      }
+      50% {
+        transform: translateX(20%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    .ultra-purple-wavy-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.1);
+      transition: all 0.4s ease;
+      animation: wave 1.5s infinite;
+    }
+
+    .ultra-purple-wavy-btn:hover::after {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Smooth transition for the image */
+    .transition-image {
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Image hover effect */
+    .blogitem-image label img:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body class="theme-blush">
+
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+  <div class="loader">
+    <div class="m-t-30"><img class="zmdi-hc-spin" src="/assets/images/VinciLogo.png" width="200" height="200" alt="Aero"></div>
+    <p>Please wait...</p>
+  </div>
+</div>
+
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+
+<!-- Main Search -->
+<div id="search">
+  <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
+  <form>
+    <input type="search" value="" placeholder="Search..." />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
+<!-- Right Icon menu Sidebar -->
+<div class="navbar-right">
+  <ul class="navbar-nav">
+    <li><a href="#search" class="main_search" title="Search..."><i class="zmdi zmdi-search"></i></a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="App" data-toggle="dropdown" role="button"><i class="zmdi zmdi-apps"></i></a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">App Sortcute</li>
+        <li class="body">
+          <ul class="menu app_sortcut list-unstyled">
+            <li>
+              <a href="image-gallery.html">
+                <div class="icon-circle mb-2 bg-blue"><i class="zmdi zmdi-camera"></i></div>
+                <p class="mb-0">Photos</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-amber"><i class="zmdi zmdi-translate"></i></div>
+                <p class="mb-0">Translate</p>
+              </a>
+            </li>
+            <li>
+              <a href="events.html">
+                <div class="icon-circle mb-2 bg-green"><i class="zmdi zmdi-calendar"></i></div>
+                <p class="mb-0">Calendar</p>
+              </a>
+            </li>
+            <li>
+              <a href="contact.html">
+                <div class="icon-circle mb-2 bg-purple"><i class="zmdi zmdi-account-calendar"></i></div>
+                <p class="mb-0">Contacts</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-red"><i class="zmdi zmdi-tag"></i></div>
+                <p class="mb-0">News</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-grey"><i class="zmdi zmdi-map"></i></div>
+                <p class="mb-0">Maps</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="Notifications" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Notifications</li>
+        <li class="body">
+          <ul class="menu list-unstyled">
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
+                <div class="menu-info">
+                  <h4>8 New Members joined</h4>
+                  <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
+                <div class="menu-info">
+                  <h4>4 Sales made</h4>
+                  <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy Doe</b> Deleted account</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy</b> Changed name</h4>
+                  <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Commented your post</h4>
+                  <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Updated status</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
+                <div class="menu-info">
+                  <h4>Settings Updated</h4>
+                  <p><i class="zmdi zmdi-time"></i> Yesterday </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-flag"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Tasks List <small class="float-right"><a href="javascript:void(0);">View All</a></small></li>
+        <li class="body">
+          <ul class="menu tasks list-unstyled">
+            <li>
+              <div class="progress-container progress-primary">
+                <span class="progress-badge">eCommerce Website</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+                    <span class="progress-value">86%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar3.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar4.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container">
+                <span class="progress-badge">iOS Game Dev</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                    <span class="progress-value">45%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar10.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar9.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar8.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar6.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container progress-warning">
+                <span class="progress-badge">Home Development</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100" style="width: 29%;">
+                    <span class="progress-value">29%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar5.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="javascript:void(0);" class="app_calendar" title="Calendar"><i class="zmdi zmdi-calendar"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_google_drive" title="Google Drive"><i class="zmdi zmdi-google-drive"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_group_work" title="Group Work"><i class="zmdi zmdi-group-work"></i></a></li>
+    <li><a href="javascript:void(0);" class="js-right-sidebar" title="Setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li><a href="sign-in.html" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
+  </ul>
+</div>
+
+<!-- Left Sidebar -->
+<aside id="leftsidebar" class="sidebar">
+  <div class="navbar-brand">
+    <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+    <a th:href="@{/home/admin}"><img src="/assets/images/logovinci.png" width="100" alt="Aero"><span class="m-l-10">Aero</span></a>
+  </div>
+  <div class="menu">
+    <ul class="list">
+      <li>
+        <div class="user-info">
+          <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+          <div class="detail">
+            <h4>Michael</h4>
+            <small>Super Admin</small>
+          </div>
+        </div>
+      </li>
+      <li class="active open"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+      <li><a th:href="@{/home/admin/profil}"><i class="zmdi zmdi-account"></i><span>Profile</span></a></li>
+      <li><a th:href="@{/home/admin/material}"><i class="zmdi zmdi-shopping-cart"></i><span>List of Materials</span></a></li>
+      <li><a th:href="@{/home/admin/category}"><i class="zmdi zmdi-collection-add"></i><span>List of Categories</span></a></li>
+      <li><a th:href="@{/home/admin/suppliers}"><i class="zmdi zmdi-store"></i><span>List of Suppliers</span></a></li>
+      <li><a th:href="@{/home/admin/users}"><i class="zmdi zmdi-folder-person"></i><span>List of Users</span></a></li>
+      <li><a th:href="@{/home/admin/notifications}"><i class="zmdi zmdi-notifications"></i><span>Notifications</span></a></li>
+      <li><a th:href="@{/home/admin/inbox}"><i class="zmdi zmdi-inbox"></i><span>INBOX</span></a></li>
+      <li>
+        <div class="progress-container progress-primary m-t-10">
+          <span class="progress-badge">Traffic this Month</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;">
+              <span class="progress-value">67%</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-container progress-info">
+          <span class="progress-badge">Server Load</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+              <span class="progress-value">86%</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- End Left sidebar
+
+<- Right Sidebar -->
+<aside id="rightsidebar" class="right-sidebar">
+  <ul class="nav nav-tabs sm">
+    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat"><i class="zmdi zmdi-comments"></i></a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="setting">
+      <div class="slim_scroll">
+        <div class="card">
+          <h6>Theme Option</h6>
+          <div class="light_dark">
+            <div class="radio">
+              <input type="radio" name="radio1" id="lighttheme" value="light" checked="">
+              <label for="lighttheme">Light Mode</label>
+            </div>
+            <div class="radio mb-0">
+              <input type="radio" name="radio1" id="darktheme" value="dark">
+              <label for="darktheme">Dark Mode</label>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h6>Color Skins</h6>
+          <ul class="choose-skin list-unstyled">
+            <li data-theme="purple"><div class="purple"></div></li>
+            <li data-theme="blue"><div class="blue"></div></li>
+            <li data-theme="cyan"><div class="cyan"></div></li>
+            <li data-theme="green"><div class="green"></div></li>
+            <li data-theme="orange"><div class="orange"></div></li>
+            <li data-theme="blush" class="active"><div class="blush"></div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h6>General Settings</h6>
+          <ul class="setting-list list-unstyled">
+            <li>
+              <div class="checkbox rtl_support">
+                <input id="checkbox1" type="checkbox" value="rtl_view">
+                <label for="checkbox1">RTL Version</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox ms_bar">
+                <input id="checkbox2" type="checkbox" value="mini_active">
+                <label for="checkbox2">Mini Sidebar</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox3" type="checkbox" checked="">
+                <label for="checkbox3">Notifications</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox4" type="checkbox">
+                <label for="checkbox4">Auto Updates</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox5" type="checkbox" checked="">
+                <label for="checkbox5">Offline</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox6" type="checkbox" checked="">
+                <label for="checkbox6">Location Permission</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane right_chat" id="chat">
+      <div class="slim_scroll">
+        <div class="card">
+          <ul class="list-unstyled">
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar4.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Sophia <small class="float-right">11:00AM</small></span>
+                    <span class="message">There are many variations of passages of Lorem Ipsum available</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar5.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Grayson <small class="float-right">11:30AM</small></span>
+                    <span class="message">All the Lorem Ipsum generators on the</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="offline">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar2.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Isabella <small class="float-right">11:31AM</small></span>
+                    <span class="message">Contrary to popular belief, Lorem Ipsum</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="me">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar1.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">John <small class="float-right">05:00PM</small></span>
+                    <span class="message">It is a long established fact that a reader</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar3.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Alexander <small class="float-right">06:08PM</small></span>
+                    <span class="message">Richard McClintock, a Latin professor</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<section class="content">
+  <div class="body_scroll">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+          <h2>Edit Category</h2>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/home/admin/category}"><i class="zmdi zmdi-home"></i> Categories</a></li>
+            <li class="breadcrumb-item active">Edit Category</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
+          <div class="card">
+            <div class="blogitem mb-5">
+              <form id="category-form" th:action="@{/home/admin/category/update}" method="post" enctype="multipart/form-data">
+                <!-- Hidden input for category ID -->
+                <input type="hidden" name="id" th:value="${category.id}" />
+
+                <div class="blogitem-image position-relative">
+                  <!-- Loading spinner (hidden by default) -->
+                  <div id="loadingSpinner" class="spinner-border text-primary" role="status" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <!-- Label used to trigger file input -->
+                  <label for="uploadCategoryPicture">
+                    <img id="categoryImage" th:src="@{${categoryPicture}}" alt="Category Image" class="img-fluid rounded transition-image" style="cursor: pointer;" />
+                  </label>
+                  <!-- Hidden file input -->
+                  <input type="file" id="uploadCategoryPicture" name="categoryPicture" style="display: none;" accept="image/*" />
+                </div>
+                <div class="card">
+                  <div class="header">
+                    <h2><strong>Category</strong> to be updated</h2>
+                  </div>
+                  <div class="">
+                    <small>Please make sure of every data you give</small>
+                    <div class="row comment-form mt-2">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="categoryName">Category Name</label>
+                          <input type="text" id="categoryName" class="form-control input-field" name="name" th:value="${category.name}" placeholder="Category Name" required>
+                          <small id="categoryName-error" class="form-text"></small>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <textarea rows="3" class="form-control no-resize" name="description" placeholder="Please type what you want..." th:text="${category.description}"></textarea>
+                        </div>
+                        <button type="submit" id="submit-button" class="btn ultra-purple-wavy-btn" disabled>
+                          SUBMIT
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="blogitem-content">
+                <blockquote class="blockquote">
+                  <p>Effective inventory management is key to optimizing stock levels and ensuring smooth operations. Start by tracking stock in real-time to avoid overstocking and stockouts. Set up replenishment alerts based on minimum thresholds and manage suppliers by evaluating their performance and diversifying sources. Implement batch tracking for materials with expiry dates and organize stock by warehouse location for easy access. Use reporting tools to generate insights on stock movements and consumption.
+                    Optimize stock levels with techniques like ABC analysis to prioritize high-value items and Just-in-Time (JIT) ordering to reduce holding costs. Maintain safety stock for critical items to handle unexpected demand. Regularly review suppliers, negotiate contracts for better prices, and avoid dependency by having backups.
+                    Integrate technology like barcoding, RFID, and ERP systems for accurate tracking and streamlined operations. Automate processes where possible and use cloud solutions for remote data access. Regularly audit inventory with cycle counting and generate reports on stock movements, aging items, and cost tracking to keep records accurate and manage costs effectively. .</p>
+                  <footer>by <a href="https://www.vinci-energies.com/">Vinci Energies Dashboard</a></footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="card">
+            <div class="body search">
+              <div class="input-group mb-0">
+                <input type="text" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2"><i class="zmdi zmdi-search"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="header">
+              <h2><strong>Categories</strong></h2>
+            </div>
+            <div class="body">
+              <ul class="list-unstyled mb-0 widget-categories">
+                <li th:each="category : ${categories}">
+                  <a href="javascript:void(0);" th:href="@{/home/admin/category/edit/{id}(id=${category.id})}" th:text="${category.name}"></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card">
+            <div class="header">
+              <h2><strong>Recent</strong> Notification</h2>
+            </div>
+            <div class="body">
+              <ul class="list-unstyled mb-0 widget-recentpost">
+                <li>
+                  <div class="recentpost-content">
+                    <a href="blog-details.html">Fundamental analysis services</a>
+                    <span>August 01, 2018</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Jquery Core Js -->
+<script src="/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
+<script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
+
+<script src="/assets/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
+<script src="/assets/bundles/sparkline.bundle.js"></script> <!-- Sparkline Plugin Js -->
+<script src="/assets/bundles/c3.bundle.js"></script>
+
+<script src="/assets/bundles/mainscripts.bundle.js"></script>
+<script src="/assets/js/pages/index.js"></script>
+
+
+<script>
+  document.getElementById('uploadCategoryPicture').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('categoryImage').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  document.querySelector('label[for="uploadCategoryPicture"]').addEventListener('click', function() {
+    document.getElementById('uploadCategoryPicture').click();
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    // Store the initial category name value
+    const initialCategoryName = $('#categoryName').val();
+
+    function checkCategoryNameAvailability(name) {
+      if (name.trim() === "") {
+        // If the input is empty, apply the error style and show an error message
+        $('#categoryName').removeClass('success').addClass('error');
+        $('#categoryName-error').text('Category name cannot be empty');
+        checkFormValidity(); // Ensure submit button is correctly enabled/disabled
+        return;
+      }
+
+      // Check if the input value matches the initial value
+      if (name === initialCategoryName) {
+        // If the value is the same as the initial value, keep the normal style
+        $('#categoryName').removeClass('error success');
+        $('#categoryName-error').text('');
+        checkFormValidity(); // Ensure submit button is correctly enabled/disabled
+        return;
+      }
+
+      $.ajax({
+        url: '/home/admin/category/edit/validation',
+        type: 'GET',
+        data: {
+          name: name
+        },
+        success: function(response) {
+          let isValid = response.name === "";
+
+          // Update field style based on validity
+          if (isValid) {
+            $('#categoryName').removeClass('error').addClass('success');
+            $('#categoryName-error').text(''); // Optionally show a success message
+          } else {
+            $('#categoryName').removeClass('success').addClass('error');
+            $('#categoryName-error').text(response.name);
+          }
+
+          // Enable/Disable submit button based on overall validity
+          checkFormValidity();
+        }
+      });
+    }
+
+    function checkFormValidity() {
+      let isValid = $('#categoryName-error').text() === '';
+      $('#submit').prop('disabled', !isValid);
+    }
+
+    $('#categoryName').on('input', function() {
+      checkCategoryNameAvailability($(this).val());
+    });
+  });
+
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('category-form');
+    const submitButton = document.getElementById('submit-button');
+    const initialValues = {};
+
+    // Store initial values for inputs and textarea
+    form.querySelectorAll('input[type="text"], textarea').forEach(input => {
+      initialValues[input.name] = input.value.trim();
+    });
+
+    // Check if the form has changed
+    function hasFormChanged() {
+      let changed = false;
+
+      // Check if any text input or textarea value has changed
+      form.querySelectorAll('input[type="text"], textarea').forEach(input => {
+        if (input.value.trim() !== initialValues[input.name]) {
+          changed = true;
+        }
+      });
+
+      // Check if file input has a file selected
+      const fileInput = form.querySelector('input[type="file"]');
+      if (fileInput && fileInput.files.length > 0) {
+        changed = true;
+      }
+
+      // Enable or disable the submit button
+      submitButton.disabled = !changed;
+    }
+
+    // Add event listeners to text inputs and textareas
+    form.querySelectorAll('input[type="text"], textarea').forEach(input => {
+      input.addEventListener('input', hasFormChanged);
+    });
+
+    // Add change event listener for file input
+    const fileInput = form.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.addEventListener('change', hasFormChanged);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1040 @@
+<!doctype html>
+<html class="no-js " lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+
+  <title>VINCI ENERGIES || List of Materials</title>
+  <link rel="icon" href="/assets/images/VinciLogo.png" type="image/x-icon">
+  <!-- Favicon-->
+  <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- JQuery DataTable Css -->
+  <link rel="stylesheet" href="/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+  <link href="/assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link  rel="stylesheet" href="/assets/css/style.min.css">
+
+
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .title {
+      text-align: center;
+      flex: 1;
+    }
+    .dropdown {
+      margin-left: auto;
+    }
+    /* Product Details Styling */
+    .product-details {
+      background: linear-gradient(135deg, #f0f2f5, #e4e6eb); /* Soft gradient background */
+      color: #1c1e21; /* Darker gray text */
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: auto;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .product-details:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transform: scale(1.03);
+    }
+
+    .product-image {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .product-image__img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 2px solid #1877f2; /* Meta blue border */
+    }
+
+    .product-info {
+      text-align: center;
+    }
+
+    .product-info__name {
+      font-size: 1.75rem;
+      color: #1877f2; /* Meta blue for product name */
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .product-info__description {
+      font-size: 1rem;
+      color: #606770; /* Soft gray for description */
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .product-info__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .product-info__item {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #444950; /* Slightly darker gray for items */
+    }
+
+    .product-info__price {
+      color: #1877f2; /* Meta blue for price */
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    .product-info__stock {
+      color: #ffb100; /* Warm yellow for stock status */
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+
+
+
+
+
+
+
+    /* React-Like Section Title Styling */
+    .section-title {
+      font-size: 2.5rem; /* Large font size */
+      font-weight: 700; /* Bold font */
+      color: #000000; /* React's blue */
+      text-align: center; /* Center the title */
+      margin-bottom: 30px; /* Space below the title */
+      text-transform: uppercase; /* Uppercase letters */
+      letter-spacing: 1.5px; /* Spacing between letters */
+      position: relative;
+      animation: fadeIn 1.2s ease-out; /* Subtle fade-in effect */
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 4px;
+      background-color: #61dafb; /* Matching underline color */
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    }
+
+    /* Fade-in effect */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+
+    .invalid {
+      border-color: red;
+    }
+
+    .valid {
+      border-color: green;
+    }
+
+    .invalid-feedback {
+      color: red;
+      display: none; /* Hidden by default */
+    }
+
+    input.invalid + .invalid-feedback,
+    textarea.invalid + .invalid-feedback,
+    select.invalid + .invalid-feedback {
+      display: block; /* Show message for invalid fields */
+    }
+
+
+    /* Darker but lighter Modal Background */
+    .dark-modal .modal-content {
+      background-color: #777676; /* Slightly lighter dark background color */
+      color: #ddd; /* Light text color */
+    }
+
+    .dark-modal .modal-header,
+    .dark-modal .modal-footer {
+      border-color: #555; /* Darker border color */
+    }
+
+    .dark-modal .form-control,
+    .dark-modal .form-control-file {
+      background-color: #494949; /* Darker background for inputs */
+      color: #ffffff; /* Light text for inputs */
+      border-color: #666; /* Darker border color */
+    }
+
+    .dark-modal .modal-body {
+      max-height: 60vh; /* Limit modal body height to avoid excessive scrolling */
+      overflow-y: auto; /* Enable scroll only inside modal body */
+    }
+
+    /* Dark scrollbar for the modal */
+    .dark-modal .modal-body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .dark-modal .modal-body::-webkit-scrollbar-track {
+      background: #444;
+    }
+
+    .dark-modal .modal-body::-webkit-scrollbar-thumb {
+      background: #666;
+      border-radius: 4px;
+    }
+
+    #imagePreview img {
+      max-width: 100%;
+      max-height: 100px; /* Adjust height as needed */
+      object-fit: cover;
+    }
+
+    /* Ensure the modal fits within the viewport */
+    .modal-dialog {
+      max-width: 600px; /* Adjust width as needed */
+    }
+
+    /* Center footer buttons */
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+
+
+    .ultra-purple-wavy-btn {
+      background: linear-gradient(45deg, #7b42f6, #b84ef1);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .ultra-purple-wavy-btn::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255, 255, 255, 0.15);
+      transition: all 0.75s ease;
+      transform: translate(-50%, -50%) rotate(45deg);
+      opacity: 0;
+    }
+
+    .ultra-purple-wavy-btn:hover::before {
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+
+    .ultra-purple-wavy-btn:hover {
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+  </style>
+</head>
+
+<body class="theme-blush">
+
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+  <div class="loader">
+    <div class="m-t-30"><img class="zmdi-hc-spin" src="/assets/images/VinciLogo.png" width="200" height="200" alt="Aero"></div>
+    <p>Please wait...</p>
+  </div>
+</div>
+
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+
+<!-- Main Search -->
+<div id="search">
+  <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
+  <form>
+    <input type="search" value="" placeholder="Search..." />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
+<!-- Right Icon menu Sidebar -->
+<div class="navbar-right">
+  <ul class="navbar-nav">
+    <li><a href="#search" class="main_search" title="Search..."><i class="zmdi zmdi-search"></i></a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="App" data-toggle="dropdown" role="button"><i class="zmdi zmdi-apps"></i></a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">App Sortcute</li>
+        <li class="body">
+          <ul class="menu app_sortcut list-unstyled">
+            <li>
+              <a href="image-gallery.html">
+                <div class="icon-circle mb-2 bg-blue"><i class="zmdi zmdi-camera"></i></div>
+                <p class="mb-0">Photos</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-amber"><i class="zmdi zmdi-translate"></i></div>
+                <p class="mb-0">Translate</p>
+              </a>
+            </li>
+            <li>
+              <a href="events.html">
+                <div class="icon-circle mb-2 bg-green"><i class="zmdi zmdi-calendar"></i></div>
+                <p class="mb-0">Calendar</p>
+              </a>
+            </li>
+            <li>
+              <a href="contact.html">
+                <div class="icon-circle mb-2 bg-purple"><i class="zmdi zmdi-account-calendar"></i></div>
+                <p class="mb-0">Contacts</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-red"><i class="zmdi zmdi-tag"></i></div>
+                <p class="mb-0">News</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-grey"><i class="zmdi zmdi-map"></i></div>
+                <p class="mb-0">Maps</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="Notifications" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Notifications</li>
+        <li class="body">
+          <ul class="menu list-unstyled">
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
+                <div class="menu-info">
+                  <h4>8 New Members joined</h4>
+                  <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
+                <div class="menu-info">
+                  <h4>4 Sales made</h4>
+                  <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy Doe</b> Deleted account</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy</b> Changed name</h4>
+                  <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Commented your post</h4>
+                  <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Updated status</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
+                <div class="menu-info">
+                  <h4>Settings Updated</h4>
+                  <p><i class="zmdi zmdi-time"></i> Yesterday </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-flag"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Tasks List <small class="float-right"><a href="javascript:void(0);">View All</a></small></li>
+        <li class="body">
+          <ul class="menu tasks list-unstyled">
+            <li>
+              <div class="progress-container progress-primary">
+                <span class="progress-badge">eCommerce Website</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+                    <span class="progress-value">86%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar3.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar4.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container">
+                <span class="progress-badge">iOS Game Dev</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                    <span class="progress-value">45%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar10.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar9.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar8.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar6.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container progress-warning">
+                <span class="progress-badge">Home Development</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100" style="width: 29%;">
+                    <span class="progress-value">29%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar5.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="javascript:void(0);" class="app_calendar" title="Calendar"><i class="zmdi zmdi-calendar"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_google_drive" title="Google Drive"><i class="zmdi zmdi-google-drive"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_group_work" title="Group Work"><i class="zmdi zmdi-group-work"></i></a></li>
+    <li><a href="javascript:void(0);" class="js-right-sidebar" title="Setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li><a href="sign-in.html" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
+  </ul>
+</div>
+
+<!-- Left Sidebar -->
+<aside id="leftsidebar" class="sidebar">
+  <div class="navbar-brand">
+    <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+    <a th:href="@{/home/admin}"><img src="/assets/images/logovinci.png" width="100" alt="Aero"><span class="m-l-10">Aero</span></a>
+  </div>
+  <div class="menu">
+    <ul class="list">
+      <li>
+        <div class="user-info">
+          <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+          <div class="detail">
+            <h4>Michael</h4>
+            <small>Super Admin</small>
+          </div>
+        </div>
+      </li>
+      <li class="active open"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+      <li><a th:href="@{/home/admin/profil}"><i class="zmdi zmdi-account"></i><span>Profile</span></a></li>
+      <li><a th:href="@{/home/admin/material}"><i class="zmdi zmdi-shopping-cart"></i><span>List of Materials</span></a></li>
+      <li><a href="my-profile.html"><i class="zmdi zmdi-collection-add"></i><span>List of Categories</span></a></li>
+      <li><a href="my-profile.html"><i class="zmdi zmdi-store"></i><span>List of Suppliers</span></a></li>
+      <li><a href="my-profile.html"><i class="zmdi zmdi-shopping-basket"></i><span>List of Orders</span></a></li>
+      <li><a href="my-profile.html"><i class="zmdi zmdi-folder-person"></i><span>List of Users</span></a></li>
+      <li><a href="my-profile.html"><i class="zmdi zmdi-notifications"></i><span>Notifications</span></a></li>
+      <li><a href="my-profile.html"><i class="zmdi zmdi-inbox"></i><span>INBOX</span></a></li>
+      <li>
+        <div class="progress-container progress-primary m-t-10">
+          <span class="progress-badge">Traffic this Month</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;">
+              <span class="progress-value">67%</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-container progress-info">
+          <span class="progress-badge">Server Load</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+              <span class="progress-value">86%</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- End Left sidebar
+
+<-- Right Sidebar -->
+<aside id="rightsidebar" class="right-sidebar">
+  <ul class="nav nav-tabs sm">
+    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat"><i class="zmdi zmdi-comments"></i></a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="setting">
+      <div class="slim_scroll">
+        <div class="card">
+          <h6>Theme Option</h6>
+          <div class="light_dark">
+            <div class="radio">
+              <input type="radio" name="radio1" id="lighttheme" value="light" checked="">
+              <label for="lighttheme">Light Mode</label>
+            </div>
+            <div class="radio mb-0">
+              <input type="radio" name="radio1" id="darktheme" value="dark">
+              <label for="darktheme">Dark Mode</label>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h6>Color Skins</h6>
+          <ul class="choose-skin list-unstyled">
+            <li data-theme="purple"><div class="purple"></div></li>
+            <li data-theme="blue"><div class="blue"></div></li>
+            <li data-theme="cyan"><div class="cyan"></div></li>
+            <li data-theme="green"><div class="green"></div></li>
+            <li data-theme="orange"><div class="orange"></div></li>
+            <li data-theme="blush" class="active"><div class="blush"></div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h6>General Settings</h6>
+          <ul class="setting-list list-unstyled">
+            <li>
+              <div class="checkbox rtl_support">
+                <input id="checkbox1" type="checkbox" value="rtl_view">
+                <label for="checkbox1">RTL Version</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox ms_bar">
+                <input id="checkbox2" type="checkbox" value="mini_active">
+                <label for="checkbox2">Mini Sidebar</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox3" type="checkbox" checked="">
+                <label for="checkbox3">Notifications</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox4" type="checkbox">
+                <label for="checkbox4">Auto Updates</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox5" type="checkbox" checked="">
+                <label for="checkbox5">Offline</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox6" type="checkbox" checked="">
+                <label for="checkbox6">Location Permission</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane right_chat" id="chat">
+      <div class="slim_scroll">
+        <div class="card">
+          <ul class="list-unstyled">
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar4.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Sophia <small class="float-right">11:00AM</small></span>
+                    <span class="message">There are many variations of passages of Lorem Ipsum available</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar5.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Grayson <small class="float-right">11:30AM</small></span>
+                    <span class="message">All the Lorem Ipsum generators on the</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="offline">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar2.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Isabella <small class="float-right">11:31AM</small></span>
+                    <span class="message">Contrary to popular belief, Lorem Ipsum</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="me">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar1.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">John <small class="float-right">05:00PM</small></span>
+                    <span class="message">It is a long established fact that a reader</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar3.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Alexander <small class="float-right">06:08PM</small></span>
+                    <span class="message">Richard McClintock, a Latin professor</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<section class="content">
+  <div class="body_scroll">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+          <h2>List of Materials</h2>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i> Aero</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/home/admin/material}">Materials</a></li>
+          </ul>
+          <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+          <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn ultra-purple-wavy-btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+          <!-- Button to trigger modal -->
+          <button class="btn btn-success btn-icon float-right ultra-purple-wavy-btn" type="button" data-toggle="modal" data-target="#addMaterialModal">
+            <i class="zmdi zmdi-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+      <!-- Exportable Table -->
+      <div class="row clearfix">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="header">
+              <h2><strong>Materials</strong>  BY Category </h2>
+              <ul class="header-dropdown">
+                <li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
+                  <ul class="dropdown-menu dropdown-menu-right slideUp">
+                    <li><a href="">Cat 1</a></li>
+                    <li><a href="">Cat 2</a></li>
+                    <li><a href="">Cat 3</a></li>
+                    <li><a href="">Cat ...</a></li>
+                  </ul>
+                </li>
+                <li class="remove">
+                  <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                  <thead>
+                  <tr>
+                    <th style="text-align: center; vertical-align: middle;">Material Name</th>
+                    <th style="text-align: center; vertical-align: middle;">Supplier Code</th>
+                    <th style="text-align: center; vertical-align: middle;">Supplier Name</th>
+                    <th style="text-align: center; vertical-align: middle;">Price</th>
+                    <th style="text-align: center; vertical-align: middle;">Stock</th>
+                    <th style="text-align: center; vertical-align: middle;">Total</th> <!-- New column for Total -->
+                    <th style="text-align: center; vertical-align: middle;">Date Entered</th>
+                    <th style="text-align: center; vertical-align: middle;">Category Name</th>
+                    <th style="text-align: center; vertical-align: middle;">Action</th>
+                    <th style="text-align: center; vertical-align: middle;">More Details</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="data : ${materialSupplierData}">
+                    <td style="text-align: center; vertical-align: middle;" th:text="${data.materialName}"></td>
+                    <td style="text-align: center; vertical-align: middle;" th:text="${data.supplierCode}"></td>
+                    <td style="text-align: center; vertical-align: middle;" th:text="${data.supplierName}"></td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <span th:text="${data.price} + ' $'"
+                              th:class="${data.price > 100 ? 'badge badge-danger' : (data.price > 50 ? 'badge badge-warning' : 'badge badge-success')}">
+                        </span>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <span th:text="${data.stock}"
+                              th:class="${data.stock > 20 ? 'badge badge-success' : (data.stock > 0 ? 'badge badge-warning' : 'badge badge-danger')}">
+                        </span>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <span th:text="${data.total} + ' $'"
+                              th:class="${data.total > 1000 ? 'badge badge-danger' : (data.total > 500 ? 'badge badge-warning' : 'badge badge-success')}"
+                              class="badge badge-lg">
+                        </span> <!-- Display Total with Badge -->
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;" th:text="${data.dateEntered}"></td>
+                    <td style="text-align: center; vertical-align: middle;" th:text="${data.categoryName}"></td>
+                    <td style="text-align: center; vertical-align: middle;">
+                      <a th:href="@{/home/admin/material/details/{id}(id=${data.materialId})}" class="btn btn-default waves-effect waves-float btn-sm ultra-purple-wavy-btn">
+                        <i class="zmdi zmdi-edit"></i>
+                      </a>
+                      <a th:href="@{/home/admin/material/delete/{id}(id=${data.materialId})}" class="btn btn-default waves-effect waves-float btn-sm ultra-purple-wavy-btn delete-btn">
+                        <i class="zmdi zmdi-delete"></i>
+                      </a>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                      <a th:href="@{/home/admin/material/details/{id}(id=${data.materialId})}" class="btn ultra-purple-wavy-btn waves-effect waves-float btn-sm">
+                        More Details
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <!-- Dropdown Menu -->
+        <div class="dropdown">
+          <button class="btn btn-primary ultra-purple-wavy-btn dropdown-toggle" type="button" id="categoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter by Category
+          </button>
+          <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <a class="dropdown-item" href="#" th:href="@{/home/admin/material}">All Categories</a>
+            <li th:each="category : ${categories}">
+              <a class="dropdown-item" th:href="@{/home/admin/material(categoryId=${category.id})}" th:text="${category.name}"></a>
+            </li>
+          </div>
+        </div>
+        <!-- Title -->
+        <h2 class="section-title title">All Materials</h2>
+      </div>
+      <!-- Product Grid -->
+      <div class="row clearfix">
+        <!-- Product Card Loop -->
+        <div th:each="material : ${materials}" class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+          <div class="card product-card">
+            <div class="body product_item">
+              <!-- Product Details Section -->
+              <div class="product-details">
+                <div class="product-image">
+                  <img th:src="@{/home/admin/material/image/{id}(id=${material.id})}" alt="Product" class="img-fluid cp_img" />
+                </div>
+                <div class="product-info">
+                  <h4 class="product-info__name" th:text="${material.name}">Knit Beanie with Patch</h4>
+                  <p class="product-info__description" th:text="${material.category.name}">Quality knitted beanie with a stylish patch.</p>
+                  <ul class="product-info__list">
+                    <li class="product-info__item">
+                      <strong>Price:</strong> <span class="product-info__price" th:text="${'$' + material.price}">$13.00</span>
+                    </li>
+                    <li class="product-info__item">
+                      <strong>Stock:</strong> <span class="product-info__stock" th:text="${material.stock + ' items left'}">24 items left</span>
+                    </li>
+                    <li class="product-info__item">
+                      <div class="action">
+                        <a href="javascript:void(0);" th:href="@{/home/admin/material/details/{id}(id=${material.id})}" class="ultra-purple-wavy-btn"><i class="zmdi zmdi-eye"></i></a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add more product cards as needed -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add Material Modal -->
+<div id="addMaterialModal" class="modal fade dark-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Material</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="addMaterialForm" th:action="@{/home/admin/material/add}" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Fields Section -->
+              <div class="col-12">
+                <!-- Name -->
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" class="form-control validate-field" name="name" placeholder="Enter name" required>
+                  <div class="invalid-feedback">Name is required</div>
+                </div>
+                <!-- Description -->
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea id="description" class="form-control validate-field" name="description" placeholder="Enter description" required></textarea>
+                  <div class="invalid-feedback">Description is required</div>
+                </div>
+                <!-- Price -->
+                <div class="form-group">
+                  <label for="price">Price</label>
+                  <input type="number" step="1.00" id="price" class="form-control validate-field" name="price" placeholder="Enter price" required>
+                  <div class="invalid-feedback">Price is required</div>
+                </div>
+                <!-- Stock -->
+                <div class="form-group">
+                  <label for="stock">Stock</label>
+                  <input type="number" id="stock" class="form-control validate-field" name="stock" placeholder="Enter stock" required>
+                  <div class="invalid-feedback">Stock is required</div>
+                </div>
+                <!-- Reference -->
+                <div class="form-group">
+                  <label for="ref">Reference</label>
+                  <input type="text" id="ref" class="form-control validate-field" name="ref" placeholder="Enter reference">
+                  <div class="invalid-feedback">Reference is optional but should not be empty if provided</div>
+                </div>
+                <!-- Category Dropdown -->
+                <div class="form-group">
+                  <label for="category">Category</label>
+                  <select id="category" class="form-control" name="categoryId">
+                    <option value="" disabled selected>-- Please select --</option>
+                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                  </select>
+                </div>
+                <!-- Suppliers Dropdown (Multiple Select) -->
+                <div class="form-group">
+                  <label for="supplier">Suppliers</label>
+                  <select id="supplier" class="form-control" name="supplierId" multiple>
+                    <option value="" disabled selected>-- Please select --</option>
+                    <option th:each="sup : ${suppliers}" th:value="${sup.id}" th:text="${sup.fullName}"></option>
+                  </select>
+                </div>
+                <!-- Image Upload -->
+                <div class="form-group">
+                  <label for="image">Material Image</label>
+                  <input type="file" id="image" class="form-control-file validate-field" name="image" required>
+                  <div class="invalid-feedback">Image is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="submitButton" class="btn btn-primary ultra-purple-wavy-btn" disabled>Save</button>
+          <button type="button" class="btn btn-secondary ultra-purple-wavy-btn" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Jquery Core Js -->
+<script src="/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+<script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+
+<!-- Jquery DataTable Plugin Js -->
+<script src="/assets/bundles/datatablescripts.bundle.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.flash.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.html5.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.print.min.js"></script>
+
+<script src="/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script> <!-- Bootstrap Colorpicker Js -->
+<script src="/assets/plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script> <!-- Input Mask Plugin Js -->
+<script src="/assets/plugins/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="/assets/plugins/jquery-spinner/js/jquery.spinner.js"></script> <!-- Jquery Spinner Plugin Js -->
+<script src="/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script> <!-- Bootstrap Tags Input Plugin Js -->
+<script src="/assets/plugins/nouislider/nouislider.js"></script> <!-- noUISlider Plugin Js -->
+
+<script src="/assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
+
+
+
+
+<script src="/assets/js/pages/forms/basic-form-elements.js"></script>
+<script src="/assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
+<script src="/assets/js/pages/tables/jquery-datatable.js"></script>
+<script src="/assets/js/pages/forms/advanced-form-elements.js"></script>
+
+<script src="/assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
+<script src="/assets/js/pages/forms/basic-form-elements.js"></script>
+<script>
+  function previewImage(event) {
+    const file = event.target.files[0];
+    const previewContainer = document.getElementById('imagePreview');
+
+    // Clear previous preview
+    previewContainer.innerHTML = '';
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        previewContainer.appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('addMaterialForm');
+    const submitButton = document.getElementById('submitButton');
+    const fields = document.querySelectorAll('.validate-field');
+
+    function validateForm() {
+      let isValid = true;
+
+      fields.forEach(field => {
+        if (field.type === 'file') {
+          if (!field.files || field.files.length === 0) {
+            field.classList.add('is-invalid');
+            isValid = false;
+          } else {
+            field.classList.remove('is-invalid');
+            field.classList.add('is-valid');
+          }
+        } else {
+          if (field.value.trim() === '') {
+            field.classList.add('is-invalid');
+            isValid = false;
+          } else {
+            field.classList.remove('is-invalid');
+            field.classList.add('is-valid');
+          }
+        }
+      });
+
+      // Enable or disable submit button based on validation
+      submitButton.disabled = !isValid;
+    }
+
+    fields.forEach(field => {
+      field.addEventListener('input', validateForm);
+      field.addEventListener('change', validateForm); // For file input
+    });
+
+    // Initial validation check
+    validateForm();
+  });
+
+</script>
+
+
+</body>
+</html>

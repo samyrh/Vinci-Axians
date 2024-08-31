@@ -1,0 +1,1122 @@
+<!doctype html>
+<html class="no-js " lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+
+  <title>VINCIES ENERGIES || Material Details</title>
+  <link rel="icon" href="/assets/images/VinciLogo.png" type="image/x-icon">
+  <!-- Favicon-->
+  <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/plugins/footable-bootstrap/css/footable.bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/plugins/footable-bootstrap/css/footable.standalone.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="/assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+  <!-- Bootstrap CSS for modal -->
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/assets/css/style.min.css">
+  <style>
+
+
+    .title-container {
+      text-align: center;
+      margin: 40px 0;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .title-container h2 {
+      font-size: 2.5rem;
+      color: #343a40;
+      font-weight: 600;
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+
+    .title-container h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      height: 4px;
+      background: #007bff;
+      border-radius: 2px;
+    }
+
+    .title-container p {
+      font-size: 1.2rem;
+      color: #495057;
+      margin: 0;
+    }
+
+
+
+
+    .comment-box {
+      position: relative;
+      background: #f0f0f0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      max-width: 80%;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 0.875rem; /* Smaller text */
+      color: #333;
+      overflow: hidden;
+    }
+
+    .comment-box::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      width: 120%;
+      height: 100%;
+      background: linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, transparent 75%, transparent);
+      z-index: -1;
+      background-size: 50px 50px;
+      animation: wavy 3s infinite linear;
+      border-radius: 8px;
+    }
+
+    @keyframes wavy {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 100px 100px;
+      }
+    }
+
+    .c_msg {
+      margin: 0;
+      line-height: 1.4;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .response-message {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: opacity 0.5s ease-out;
+      opacity: 0; /* Initially hidden */
+    }
+
+    .response-message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .response-message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .ios-comment-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: #f0f0f5; /* Soft light color to blend with the input */
+      border: 1px solid #d1d1d6;
+      border-radius: 25px;
+      padding: 8px 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .ios-comment-input {
+      flex: 1;
+      border: none;
+      background-color: #f0f0f5; /* Match the background color */
+      font-size: 16px;
+      padding: 8px 0;
+      outline: none;
+      resize: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+
+    .ios-comment-input::placeholder {
+      color: #8e8e93;
+      font-style: normal;
+    }
+
+    .ios-comment-input:focus {
+      background-color: #f0f0f5; /* Ensure the background doesn't change */
+      transition: none; /* Disable transition on focus */
+    }
+
+    .ios-submit-btn {
+      background-color: #007aff;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      margin-left: 10px;
+      border-radius: 15px;
+      font-weight: 500;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      cursor: pointer;
+    }
+
+    .ios-submit-btn:hover {
+      background-color: #0063e0;
+    }
+
+    .ios-submit-btn:active {
+      background-color: #0052b5;
+    }
+    .is-valid {
+      border-color: #28a745; /* Green border for valid fields */
+    }
+
+    .is-invalid {
+      border-color: #dc3545; /* Red border for invalid fields */
+    }
+
+    .invalid-feedback {
+      display: none;
+      color: #dc3545;
+    }
+
+    .is-invalid + .invalid-feedback {
+      display: block;
+    }
+
+    .validate-field {
+      margin-bottom: 1rem;
+    }
+
+    .image-container {
+      position: relative;
+    }
+
+    .update-icon {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    .update-icon:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+
+
+      .tropical-wavy-btn {
+      background: linear-gradient(45deg, #ff7e5f, #feb47b, #ffcc70, #00d4ff);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 25px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .tropical-wavy-btn::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.75s ease;
+      transform: translate(-50%, -50%) rotate(45deg);
+      opacity: 0;
+    }
+
+    .tropical-wavy-btn:hover::before {
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+
+    .tropical-wavy-btn:hover {
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+  </style>
+</head>
+
+<body class="theme-blush">
+
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+  <div class="loader">
+    <div class="m-t-30"><img class="zmdi-hc-spin" src="/assets/images/VinciLogo.png" width="200" height="200" alt="Aero"></div>
+    <p>Please wait...</p>
+  </div>
+</div>
+
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+
+<!-- Main Search -->
+<div id="search">
+  <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
+  <form>
+    <input type="search" value="" placeholder="Search..." />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
+<!-- Right Icon menu Sidebar -->
+<div class="navbar-right">
+  <ul class="navbar-nav">
+    <li><a href="#search" class="main_search" title="Search..."><i class="zmdi zmdi-search"></i></a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="App" data-toggle="dropdown" role="button"><i class="zmdi zmdi-apps"></i></a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">App Sortcute</li>
+        <li class="body">
+          <ul class="menu app_sortcut list-unstyled">
+            <li>
+              <a href="image-gallery.html">
+                <div class="icon-circle mb-2 bg-blue"><i class="zmdi zmdi-camera"></i></div>
+                <p class="mb-0">Photos</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-amber"><i class="zmdi zmdi-translate"></i></div>
+                <p class="mb-0">Translate</p>
+              </a>
+            </li>
+            <li>
+              <a href="events.html">
+                <div class="icon-circle mb-2 bg-green"><i class="zmdi zmdi-calendar"></i></div>
+                <p class="mb-0">Calendar</p>
+              </a>
+            </li>
+            <li>
+              <a href="contact.html">
+                <div class="icon-circle mb-2 bg-purple"><i class="zmdi zmdi-account-calendar"></i></div>
+                <p class="mb-0">Contacts</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-red"><i class="zmdi zmdi-tag"></i></div>
+                <p class="mb-0">News</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-grey"><i class="zmdi zmdi-map"></i></div>
+                <p class="mb-0">Maps</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="Notifications" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Notifications</li>
+        <li class="body">
+          <ul class="menu list-unstyled">
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
+                <div class="menu-info">
+                  <h4>8 New Members joined</h4>
+                  <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
+                <div class="menu-info">
+                  <h4>4 Sales made</h4>
+                  <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy Doe</b> Deleted account</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy</b> Changed name</h4>
+                  <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Commented your post</h4>
+                  <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Updated status</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
+                <div class="menu-info">
+                  <h4>Settings Updated</h4>
+                  <p><i class="zmdi zmdi-time"></i> Yesterday </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-flag"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Tasks List <small class="float-right"><a href="javascript:void(0);">View All</a></small></li>
+        <li class="body">
+          <ul class="menu tasks list-unstyled">
+            <li>
+              <div class="progress-container progress-primary">
+                <span class="progress-badge">eCommerce Website</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+                    <span class="progress-value">86%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar3.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar4.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container">
+                <span class="progress-badge">iOS Game Dev</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                    <span class="progress-value">45%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar10.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar9.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar8.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar6.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container progress-warning">
+                <span class="progress-badge">Home Development</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100" style="width: 29%;">
+                    <span class="progress-value">29%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar5.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="javascript:void(0);" class="app_calendar" title="Calendar"><i class="zmdi zmdi-calendar"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_google_drive" title="Google Drive"><i class="zmdi zmdi-google-drive"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_group_work" title="Group Work"><i class="zmdi zmdi-group-work"></i></a></li>
+    <li><a href="javascript:void(0);" class="js-right-sidebar" title="Setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li><a href="sign-in.html" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
+  </ul>
+</div>
+
+<!-- Left Sidebar -->
+<aside id="leftsidebar" class="sidebar">
+  <div class="navbar-brand">
+    <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+    <a th:href="@{/home/admin}"><img src="/assets/images/VinciLogo.png" width="100" alt="Aero"><span class="m-l-10">Aero</span></a>
+  </div>
+  <div class="menu">
+    <ul class="list">
+      <li>
+        <div class="user-info">
+          <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+          <div class="detail">
+            <h4>Michael</h4>
+            <small>Super Admin</small>
+          </div>
+        </div>
+      </li>
+      <li class="active open"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+      <li><a th:href="@{/home/admin/profil}"><i class="zmdi zmdi-account"></i><span>Profile</span></a></li>
+      <li><a th:href="@{/home/admin/material}"><i class="zmdi zmdi-shopping-cart"></i><span>List of Materials</span></a></li>
+      <li><a th:href="@{/home/admin/category}"><i class="zmdi zmdi-collection-add"></i><span>List of Categories</span></a></li>
+      <li><a th:href="@{/home/admin/suppliers}"><i class="zmdi zmdi-store"></i><span>List of Suppliers</span></a></li>
+      <li><a th:href="@{/home/admin/users}"><i class="zmdi zmdi-folder-person"></i><span>List of Users</span></a></li>
+      <li><a th:href="@{/home/admin/notifications}"><i class="zmdi zmdi-notifications"></i><span>Notifications</span></a></li>
+      <li><a th:href="@{/home/admin/inbox}"><i class="zmdi zmdi-inbox"></i><span>INBOX</span></a></li>
+      <li>
+        <div class="progress-container progress-primary m-t-10">
+          <span class="progress-badge">Traffic this Month</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;">
+              <span class="progress-value">67%</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-container progress-info">
+          <span class="progress-badge">Server Load</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+              <span class="progress-value">86%</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- End Left sidebar
+
+
+
+<!- Right Sidebar -->
+<aside id="rightsidebar" class="right-sidebar">
+  <ul class="nav nav-tabs sm">
+    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat"><i class="zmdi zmdi-comments"></i></a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="setting">
+      <div class="slim_scroll">
+        <div class="card">
+          <h6>Theme Option</h6>
+          <div class="light_dark">
+            <div class="radio">
+              <input type="radio" name="radio1" id="lighttheme" value="light" checked="">
+              <label for="lighttheme">Light Mode</label>
+            </div>
+            <div class="radio mb-0">
+              <input type="radio" name="radio1" id="darktheme" value="dark">
+              <label for="darktheme">Dark Mode</label>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h6>Color Skins</h6>
+          <ul class="choose-skin list-unstyled">
+            <li data-theme="purple"><div class="purple"></div></li>
+            <li data-theme="blue"><div class="blue"></div></li>
+            <li data-theme="cyan"><div class="cyan"></div></li>
+            <li data-theme="green"><div class="green"></div></li>
+            <li data-theme="orange"><div class="orange"></div></li>
+            <li data-theme="blush" class="active"><div class="blush"></div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h6>General Settings</h6>
+          <ul class="setting-list list-unstyled">
+            <li>
+              <div class="checkbox rtl_support">
+                <input id="checkbox1" type="checkbox" value="rtl_view">
+                <label for="checkbox1">RTL Version</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox ms_bar">
+                <input id="checkbox2" type="checkbox" value="mini_active">
+                <label for="checkbox2">Mini Sidebar</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox3" type="checkbox" checked="">
+                <label for="checkbox3">Notifications</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox4" type="checkbox">
+                <label for="checkbox4">Auto Updates</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox5" type="checkbox" checked="">
+                <label for="checkbox5">Offline</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox6" type="checkbox" checked="">
+                <label for="checkbox6">Location Permission</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane right_chat" id="chat">
+      <div class="slim_scroll">
+        <div class="card">
+          <ul class="list-unstyled">
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar4.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Sophia <small class="float-right">11:00AM</small></span>
+                    <span class="message">There are many variations of passages of Lorem Ipsum available</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar5.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Grayson <small class="float-right">11:30AM</small></span>
+                    <span class="message">All the Lorem Ipsum generators on the</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="offline">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar2.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Isabella <small class="float-right">11:31AM</small></span>
+                    <span class="message">Contrary to popular belief, Lorem Ipsum</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="me">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar1.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">John <small class="float-right">05:00PM</small></span>
+                    <span class="message">It is a long established fact that a reader</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar3.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Alexander <small class="float-right">06:08PM</small></span>
+                    <span class="message">Richard McClintock, a Latin professor</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<section class="content">
+  <div class="body_scroll">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+          <h2>Product Detail</h2>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/home/admin/material}"><i class="zmdi zmdi-home"></i> Materials</a></li>
+            <li class="breadcrumb-item active"><a><i class="zmdi zmdi-home"></i> Material's Details || Update Material</a></li>
+          </ul>
+          <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+          <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row clearfix">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="body">
+              <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-12">
+                  <div class="preview preview-pic tab-content">
+                    <div class="tab-pane active" id="product_1">
+                      <img th:src="'data:image/jpeg;base64,' + ${material.pictureBase64}" class="img-fluid" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-12">
+                  <div class="product details">
+                    <h3 class="product-title mb-0" th:text="${material.materialName}"></h3>
+                    <h5 class="price mt-0">Current Price: <span class="col-amber" th:text="${material.price}"></span></h5>
+                    <h5 class="price mt-0">Total Price: <span class="col-amber" th:text="${material.total}"></span></h5>
+                    <h5 class="date mt-0">Date : <span class="col-amber" th:text="${material.dateEntered}"></span></h5>
+                    <h5 class="category mt-0">Category: <span class="col-amber" th:text="${material.categoryName}"></span></h5>
+                    <h5 class="category mt-0">Material's Ref: <span class="col-amber" th:text="${material.ref}"></span></h5>
+                    <h5 class="category mt-0">Supplier Code: <span class="col-amber" th:text="${material.supplierCode}"></span></h5>
+                    <h5 class="category mt-0">Supplier Name: <span class="col-amber" th:text="${material.supplierName}"></span></h5>
+                    <h5 class="storage mt-0">stock: <span class="text-success font-weight-bold text-uppercase" th:text="${material.stock}"></span></h5>
+                    <div class="rating">
+                      <span class="m-l-10">41 Comments</span>
+                    </div>
+                    <hr>
+                    <p class="product-description" th:text="${material.description}"></p>
+                    <div class="action">
+                      <button class="btn btn-primary tropical-wavy-btn" type="button">DELETE</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="body">
+              <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description">Update</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#review">Description</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#about">Comments</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card">
+            <div class="body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="description">
+                  <form id="updateMaterialForm" th:action="@{/home/admin/material/details/update}" method="post" enctype="multipart/form-data">
+                    <!-- Hidden field for the material ID -->
+                    <input type="hidden" name="id" th:value="${material.materialId}" />
+                    <!-- Form Container -->
+                    <div class="container-fluid py-4">
+                      <div class="row">
+
+                        <!-- Left Section -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                          <div class="card shadow-sm rounded-lg h-100">
+                            <div class="card-body p-4">
+                              <h6 class="text-center text-primary mb-4 tropical-wavy-btn">Basic Information</h6>
+
+                              <div class="form-group">
+                                <label for="name" class="font-weight-bold">Material Name</label>
+                                <input type="text" id="name" name="name" th:value="${material.materialName}" class="form-control validate-field rounded-pill" placeholder="Enter material name" required />
+                                <div class="invalid-feedback">Material name is required</div>
+                              </div>
+                              <div class="form-group">
+                                <label for="descriptionn" class="font-weight-bold">Description</label>
+                                <textarea id="descriptionn" name="description" th:text="${material.description}" class="form-control validate-field rounded-lg" placeholder="Enter material description" rows="3" required></textarea>
+                                <div class="invalid-feedback">Description is required</div>
+                              </div>
+                              <div class="form-group">
+                                <label for="ref" class="font-weight-bold">Material Reference</label>
+                                <input type="text" id="ref" name="ref" th:value="${material.ref}" class="form-control validate-field rounded-pill" placeholder="Enter material reference" required />
+                                <div class="invalid-feedback">Reference is required</div>
+                              </div>
+                              <div class="form-group position-relative" style="max-width: 200px;">
+                                <label for="ref" class="font-weight-bold">Material's Picture</label>
+                                <div class="image-container" style="position: relative;">
+                                  <!-- Hidden file input for image upload -->
+                                  <input type="file" id="imageInput" name="image" class="form-control-file validate-field" accept="image/*" style="display: none;" onchange="previewImage(event)" />
+                                  <!-- Display the existing image; clicking on it will trigger the file input -->
+                                  <img id="imagePreview" th:src="'data:image/jpeg;base64,' + ${material.pictureBase64}"
+                                       class="img-fluid" alt="Selected image" style="max-height: 200px; width: 100%; object-fit: cover;" onclick="document.getElementById('imageInput').click()" />
+                                  <!-- Pro-style update icon (appears when hovering over the image) -->
+                                  <div class="update-icon" onclick="document.getElementById('imageInput').click();">
+                                    <i class="fas fa-camera" style="font-size: 24px; color: white;"></i>
+                                  </div>
+                                </div>
+                                <div class="invalid-feedback">Image is required</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Middle Section -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                          <div class="card shadow-sm rounded-lg h-100">
+                            <div class="card-body p-4">
+                              <h6 class="text-center text-primary mb-4 tropical-wavy-btn">Pricing & Stock</h6>
+
+                              <div class="form-group">
+                                <label for="price" class="font-weight-bold">Price</label>
+                                <input type="number" id="price" name="price" th:value="${material.price}" class="form-control validate-field rounded-pill" placeholder="Enter material price" step="0.01" required />
+                                <div class="invalid-feedback">Price is required</div>
+                              </div>
+                              <div class="form-group">
+                                <label for="stock" class="font-weight-bold">Stock Quantity</label>
+                                <input type="number" id="stock" name="stock" th:value="${material.stock}" class="form-control validate-field rounded-pill" placeholder="Enter stock quantity" required />
+                                <div class="invalid-feedback">Stock is required</div>
+                              </div>
+                              <label for="category" class="font-weight-bold">Update Category</label>
+                              <select id="category" class="form-control" name="categoryId">
+                                <option value=""  disabled selected>-- Please select --</option>
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.name}"
+                                        th:selected="${category.id}"></option>
+                              </select>
+
+                              <label hidden="hidden">Update Category</label>
+
+                              <div class="form-group form-float">
+                                <label for="supplier" class="font-weight-bold">Update Supplier</label>
+                                <select id="supplier" class="form-control" name="supplierId">
+                                  <option value="" disabled selected>-- Please select --</option>
+                                  <option th:each="supplier : ${suppliers}" th:value="${supplier.getId()}" th:text="${supplier.getFullName()}" th:selected="${supplier.getId()}"></option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Right Section -->
+                        <div class="col-lg-4 col-md-12 col-sm-12 mb-4">
+                          <div class="card shadow-sm rounded-lg h-100">
+                            <div class="card-body p-4">
+                              <h6 class="text-center text-primary mb-4 tropical-wavy-btn">Other Infos</h6>
+                              <div class="form-group">
+                                <label for="total" class="font-weight-bold">Total</label>
+                                <div class="input-group rounded-pill">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text rounded-pill-left">$</span>
+                                  </div>
+                                  <input type="text" id="total" name="total" th:value="${material.total}" class="form-control rounded-pill-right" placeholder="Total" readonly />
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="dateEntered" class="font-weight-bold">Date Entered</label>
+                                <input type="text" id="dateEntered" name="dateEntered" th:value="${material.dateEntered}" class="form-control rounded-pill" placeholder="Date Entered" readonly />
+                              </div>
+                              <div class="form-group">
+                                <label for="supplierCode" class="font-weight-bold">Supplier Code</label>
+                                <input type="text" id="supplierCode" name="supplierCode" th:value="${material.supplierCode}" class="form-control rounded-pill" placeholder="Supplier code" disabled />
+                              </div>
+                              <div class="form-group">
+                                <label for="supplierName" class="font-weight-bold">Supplier Name</label>
+                                <input type="text" id="supplierName" name="supplierName" th:value="${material.supplierName}" class="form-control rounded-pill" placeholder="Supplier name" disabled />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-center">
+                          <button type="submit" id="submitButton" class="btn btn-primary tropical-wavy-btn" disabled>Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane" id="review">
+                  <p th:text="${material.description}"></p>
+                </div>
+                <div class="tab-pane" id="about">
+                  <div class="title-container">
+                    <h2>Comments on This Material</h2>
+                    <p>Explore all feedback and reviews related to this material below.</p>
+                  </div>
+                  <ul class="row list-unstyled c_review mt-4">
+                    <li class="col-12" th:each="comment : ${comments}">
+                      <div class="avatar">
+                        <a href="javascript:void(0);">
+                          <img class="rounded"
+                               src="/assets/images/profile-user.png"
+                               alt="user"
+                               width="50">
+                        </a>
+                      </div>
+                      <div class="comment-action">
+                        <h5 class="c_name" th:text="${comment.user != null ? comment.user.firstName + ' ' + comment.user.lastName : comment.admin.username}"></h5>
+                        <div class="comment-box">
+                          <p class="c_msg mb-0" th:text="${comment.content}"></p>
+                        </div>
+                        <small class="comment-date float-sm-right" th:text="${#dates.format(comment.postedOn, 'MMM dd, yyyy')}"></small>
+                      </div>
+
+                    </li>
+                    <div class="col-sm-12">
+                      <h5>Leave a comment here</h5>
+                      <form id="commentForm" th:action="@{/home/admin/material/add/comment/{materialId}(materialId=${material.materialId})}" method="post">
+                        <!-- Store materialId dynamically here -->
+                        <input type="hidden" id="materialId" value="13"> <!-- Set value dynamically from your backend -->
+                        <div class="form-group ios-comment-box">
+                          <textarea name="content" id="comment" class="form-control ios-comment-input" rows="1" placeholder="Write a comment..."></textarea>
+                          <button type="submit" class="ios-submit-btn">Send</button>
+                        </div>
+                      </form>
+                      <div id="responseMessage" class="response-message"></div>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Modal for full image view -->
+<div class="modal fade" id="fullImageModal" tabindex="-1" role="dialog" aria-labelledby="fullImageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fullImageModalLabel">Full Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="fullImage" src="" alt="Full size image" class="img-fluid" />
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary tropical-wavy-btn" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Jquery Core Js -->
+<script src="/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+<script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+<script src="/assets/bundles/footable.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+<script src="/assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
+<script src="/assets/js/pages/forms/basic-form-elements.js"></script>
+<script src="/assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
+<script src="/assets/js/pages/tables/footable.js"></script><!-- Custom Js -->
+<script src="/assets/plugins/summernote/dist/summernote.js"></script>
+<script>
+  document.getElementById("commentForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the form data
+    const formData = new FormData(this);
+
+    // Send the form data using Fetch API
+    fetch(this.action, {
+      method: "POST",
+      body: formData
+    })
+            .then(response => response.text())
+            .then(data => {
+              // Show success message
+              const responseMessage = document.getElementById("responseMessage");
+              responseMessage.textContent = data;
+              responseMessage.classList.add("success");
+              responseMessage.style.opacity = 1;
+
+              // Hide the message after 3 seconds
+              setTimeout(() => {
+                responseMessage.style.opacity = 0;
+              }, 3000);
+            })
+            .catch(error => {
+              // Show error message
+              const responseMessage = document.getElementById("responseMessage");
+              responseMessage.textContent = "Failed to send comment. Please try again.";
+              responseMessage.classList.add("error");
+              responseMessage.style.opacity = 1;
+
+              // Hide the message after 3 seconds
+              setTimeout(() => {
+                responseMessage.style.opacity = 0;
+              }, 3000);
+            });
+  });
+</script>
+
+
+<script>
+  function showFullImage(event) {
+    var imgSrc = event.target.src;
+    document.getElementById('fullImage').src = imgSrc;
+    $('#fullImageModal').modal('show');
+  }
+
+  function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var output = document.getElementById('imagePreview');
+      output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('updateMaterialForm');
+    const submitButton = document.getElementById('submitButton');
+    const inputs = form.querySelectorAll('.validate-field');
+
+    function validateField(input) {
+      const field = input;
+      const value = field.value.trim();
+      let valid = true;
+
+
+      // Skip validation for categoryId and supplierId
+      if (value === '' && field.name !== 'categoryId' && field.name !== 'supplierId') {
+        field.classList.add('is-invalid');
+        field.classList.remove('is-valid');
+        valid = false;
+      } else {
+        field.classList.add('is-valid');
+        field.classList.remove('is-invalid');
+      }
+
+      return valid;
+    }
+
+    function validateForm() {
+      let allValid = true;
+
+      inputs.forEach(input => {
+        // Validate only non-select fields
+        if (input.tagName === 'INPUT' || input.tagName === 'TEXTAREA') {
+          if (!validateField(input)) {
+            allValid = false;
+          }
+        }
+      });
+
+      submitButton.disabled = !allValid;
+    }
+
+    function handleInputChange() {
+      validateForm(); // Check validation status
+      submitButton.disabled = false; // Always enable submit button when there's any change
+    }
+
+    form.addEventListener('input', handleInputChange);
+    form.addEventListener('change', handleInputChange); // Handle file input changes
+
+    // Handle file input changes specifically for the image preview
+    const imageInput = document.getElementById('imageInput');
+    imageInput.addEventListener('change', function () {
+      previewImage(event);
+      handleInputChange(); // Trigger form validation and enable submit
+    });
+
+    function previewImage(event) {
+      const input = event.target;
+      const file = input.files[0];
+      const preview = document.getElementById('imagePreview');
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Initial validation to check if fields are empty
+    validateForm();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1006 @@
+<!doctype html>
+<html class="no-js " lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+  <title>VINCI ENERGIES || ADMIN SIDE</title>
+  <link rel="icon" href="/assets/images/VinciLogo.png" type="image/x-icon"> <!-- Favicon-->
+  <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"/>
+  <link rel="stylesheet" href="/assets/plugins/charts-c3/plugin.css"/>
+  <link rel="stylesheet" href="/assets/plugins/morrisjs/morris.min.css" />
+  <link href="/assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/assets/css/style.min.css">
+  <!-- FontAwesome Icon CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .input-field {
+      border: 2px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-field.error {
+      border-color: #e74c3c; /* Red for error */
+    }
+
+    .input-field.success {
+      border-color: #2ecc71; /* Green for success */
+    }
+
+    .form-text {
+      color: #e74c3c; /* Red color for error messages */
+    }
+
+    .form-text.success {
+      color: #2ecc71; /* Green color for success messages */
+    }
+
+
+    .input-field.error {
+      border-color: #e74c3c; /* Red for error */
+    }
+
+    .input-field.success {
+      border-color: #2ecc71; /* Green for success */
+    }
+
+    .form-text {
+      color: #e74c3c; /* Red color for error messages */
+    }
+
+
+
+    .about {
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about h5 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #333;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .about-details {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .detail-item {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      border-left: 5px solid #6a1b9a; /* Stylish border on the left */
+    }
+
+    .detail-item:hover {
+      background-color: #eaeaea;
+      transform: translateY(-5px); /* Lift effect on hover */
+    }
+
+    .detail-item label {
+      font-weight: bold;
+      color: #555;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .detail-item p {
+      margin: 0;
+      color: #666;
+    }
+
+
+
+
+
+
+    .ultra-wavy-button {
+      background: linear-gradient(45deg, #6a1b9a, #8e24aa);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 50px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease;
+    }
+
+    .ultra-wavy-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      transform: translateX(-50%) translateY(-50%) scale(0);
+      border-radius: 50%;
+      animation: wavy 2s infinite ease-in-out;
+    }
+
+    @keyframes wavy {
+      0% {
+        transform: translateX(-50%) translateY(-50%) scale(0.5);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateX(-50%) translateY(-50%) scale(1.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateX(-50%) translateY(-50%) scale(0.5);
+        opacity: 0.6;
+      }
+    }
+
+    .ultra-wavy-button:hover {
+      background: linear-gradient(45deg, #7b1fa2, #9c27b0);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .ultra-wavy-button:active {
+      transform: translateY(2px);
+    }
+
+
+
+
+
+
+    .user-avatar {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      overflow: hidden; /* Ensures the image stays within the frame */
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Makes the image fluid and cover the entire area */
+      transition: box-shadow 0.3s ease, transform 0.3s ease, filter 0.3s ease; /* Smooth transitions */
+      border-radius: 50%;
+    }
+
+    .user-avatar:hover img {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05); /* Slight zoom on hover for a smooth effect */
+      filter: brightness(0.6); /* Darkens the image on hover */
+    }
+
+    .upload-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none; /* Prevents interfering with clicking on the image */
+    }
+
+    .user-avatar:hover .upload-icon {
+      opacity: 1; /* Shows the icon on hover */
+    }
+
+    body {
+      margin: 0;
+      padding-top: 40px;
+      color: #2e323c;
+      background: #f5f6fa;
+      position: relative;
+      height: 100%;
+    }
+    .account-settings .user-profile {
+      margin: 0 0 1rem 0;
+      padding-bottom: 1rem;
+      text-align: center;
+    }
+    .account-settings .user-profile .user-avatar {
+      margin: 0 0 1rem 0;
+    }
+    .account-settings .user-profile .user-avatar img {
+      width: 90px;
+      height: 90px;
+      -webkit-border-radius: 100px;
+      -moz-border-radius: 100px;
+      border-radius: 100px;
+    }
+    .account-settings .user-profile h5.user-name {
+      margin: 0 0 0.5rem 0;
+    }
+    .account-settings .user-profile h6.user-email {
+      margin: 0;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #9fa8b9;
+    }
+    .account-settings .about {
+      margin: 2rem 0 0 0;
+      text-align: center;
+    }
+    .account-settings .about h5 {
+      margin: 0 0 15px 0;
+      color: #007ae1;
+    }
+    .account-settings .about p {
+      font-size: 0.825rem;
+    }
+    .form-control {
+      border: 1px solid #cfd1d8;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px;
+      font-size: .825rem;
+      background: #ffffff;
+      color: #2e323c;
+    }
+
+    .card {
+      background: #ffffff;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      border: 0;
+      margin-bottom: 1rem;
+    }
+
+  </style>
+</head>
+
+<body class="theme-blush">
+
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+  <div class="loader">
+    <div class="m-t-30"><img class="zmdi-hc-spin" src="/assets/images/VinciLogo.png" width="200" height="200" alt="Aero"></div>
+    <p>Please wait...</p>
+  </div>
+</div>
+
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+
+<!-- Main Search -->
+<div id="search">
+  <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
+  <form>
+    <input type="search" value="" placeholder="Search..." />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
+<!-- Right Icon menu Sidebar -->
+<div class="navbar-right">
+  <ul class="navbar-nav">
+    <li><a href="#search" class="main_search" title="Search..."><i class="zmdi zmdi-search"></i></a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="App" data-toggle="dropdown" role="button"><i class="zmdi zmdi-apps"></i></a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">App Sortcute</li>
+        <li class="body">
+          <ul class="menu app_sortcut list-unstyled">
+            <li>
+              <a href="image-gallery.html">
+                <div class="icon-circle mb-2 bg-blue"><i class="zmdi zmdi-camera"></i></div>
+                <p class="mb-0">Photos</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-amber"><i class="zmdi zmdi-translate"></i></div>
+                <p class="mb-0">Translate</p>
+              </a>
+            </li>
+            <li>
+              <a href="events.html">
+                <div class="icon-circle mb-2 bg-green"><i class="zmdi zmdi-calendar"></i></div>
+                <p class="mb-0">Calendar</p>
+              </a>
+            </li>
+            <li>
+              <a href="contact.html">
+                <div class="icon-circle mb-2 bg-purple"><i class="zmdi zmdi-account-calendar"></i></div>
+                <p class="mb-0">Contacts</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-red"><i class="zmdi zmdi-tag"></i></div>
+                <p class="mb-0">News</p>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle mb-2 bg-grey"><i class="zmdi zmdi-map"></i></div>
+                <p class="mb-0">Maps</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" title="Notifications" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Notifications</li>
+        <li class="body">
+          <ul class="menu list-unstyled">
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
+                <div class="menu-info">
+                  <h4>8 New Members joined</h4>
+                  <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
+                <div class="menu-info">
+                  <h4>4 Sales made</h4>
+                  <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy Doe</b> Deleted account</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
+                <div class="menu-info">
+                  <h4><b>Nancy</b> Changed name</h4>
+                  <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Commented your post</h4>
+                  <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
+                <div class="menu-info">
+                  <h4><b>John</b> Updated status</h4>
+                  <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
+                <div class="menu-info">
+                  <h4>Settings Updated</h4>
+                  <p><i class="zmdi zmdi-time"></i> Yesterday </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-flag"></i>
+        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+      </a>
+      <ul class="dropdown-menu slideUp2">
+        <li class="header">Tasks List <small class="float-right"><a href="javascript:void(0);">View All</a></small></li>
+        <li class="body">
+          <ul class="menu tasks list-unstyled">
+            <li>
+              <div class="progress-container progress-primary">
+                <span class="progress-badge">eCommerce Website</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+                    <span class="progress-value">86%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar3.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar4.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container">
+                <span class="progress-badge">iOS Game Dev</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                    <span class="progress-value">45%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar10.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar9.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar8.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar6.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="progress-container progress-warning">
+                <span class="progress-badge">Home Development</span>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100" style="width: 29%;">
+                    <span class="progress-value">29%</span>
+                  </div>
+                </div>
+                <ul class="list-unstyled team-info">
+                  <li class="m-r-15"><small>Team</small></li>
+                  <li>
+                    <img src="/assets/images/xs/avatar5.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar2.jpg" alt="Avatar">
+                  </li>
+                  <li>
+                    <img src="/assets/images/xs/avatar7.jpg" alt="Avatar">
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="javascript:void(0);" class="app_calendar" title="Calendar"><i class="zmdi zmdi-calendar"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_google_drive" title="Google Drive"><i class="zmdi zmdi-google-drive"></i></a></li>
+    <li><a href="javascript:void(0);" class="app_group_work" title="Group Work"><i class="zmdi zmdi-group-work"></i></a></li>
+    <li><a href="javascript:void(0);" class="js-right-sidebar" title="Setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li><a href="sign-in.html" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
+  </ul>
+</div>
+
+<!-- Left Sidebar -->
+<aside id="leftsidebar" class="sidebar">
+  <div class="navbar-brand">
+    <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
+    <a th:href="@{/home/admin}"><img src="/assets/images/logovinci.png" width="100" alt="Aero"><span class="m-l-10">Aero</span></a>
+  </div>
+  <div class="menu">
+    <ul class="list">
+      <li>
+        <div class="user-info">
+          <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+          <div class="detail">
+            <h4>Michael</h4>
+            <small>Super Admin</small>
+          </div>
+        </div>
+      </li>
+      <li class="active open"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+      <li><a th:href="@{/home/admin/profil}"><i class="zmdi zmdi-account"></i><span>Profile</span></a></li>
+      <li><a th:href="@{/home/admin/material}"><i class="zmdi zmdi-shopping-cart"></i><span>List of Materials</span></a></li>
+      <li><a th:href="@{/home/admin/category}"><i class="zmdi zmdi-collection-add"></i><span>List of Categories</span></a></li>
+      <li><a th:href="@{/home/admin/suppliers}"><i class="zmdi zmdi-store"></i><span>List of Suppliers</span></a></li>
+      <li><a th:href="@{/home/admin/users}"><i class="zmdi zmdi-folder-person"></i><span>List of Users</span></a></li>
+      <li><a th:href="@{/home/admin/notifications}"><i class="zmdi zmdi-notifications"></i><span>Notifications</span></a></li>
+      <li><a th:href="@{/home/admin/inbox}"><i class="zmdi zmdi-inbox"></i><span>INBOX</span></a></li>
+      <li>
+        <div class="progress-container progress-primary m-t-10">
+          <span class="progress-badge">Traffic this Month</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;">
+              <span class="progress-value">67%</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-container progress-info">
+          <span class="progress-badge">Server Load</span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+              <span class="progress-value">86%</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</aside>
+<!-- End Left sidebar
+
+<- Right Sidebar -->
+<aside id="rightsidebar" class="right-sidebar">
+  <ul class="nav nav-tabs sm">
+    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat"><i class="zmdi zmdi-comments"></i></a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="setting">
+      <div class="slim_scroll">
+        <div class="card">
+          <h6>Theme Option</h6>
+          <div class="light_dark">
+            <div class="radio">
+              <input type="radio" name="radio1" id="lighttheme" value="light" checked="">
+              <label for="lighttheme">Light Mode</label>
+            </div>
+            <div class="radio mb-0">
+              <input type="radio" name="radio1" id="darktheme" value="dark">
+              <label for="darktheme">Dark Mode</label>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h6>Color Skins</h6>
+          <ul class="choose-skin list-unstyled">
+            <li data-theme="purple"><div class="purple"></div></li>
+            <li data-theme="blue"><div class="blue"></div></li>
+            <li data-theme="cyan"><div class="cyan"></div></li>
+            <li data-theme="green"><div class="green"></div></li>
+            <li data-theme="orange"><div class="orange"></div></li>
+            <li data-theme="blush" class="active"><div class="blush"></div></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h6>General Settings</h6>
+          <ul class="setting-list list-unstyled">
+            <li>
+              <div class="checkbox rtl_support">
+                <input id="checkbox1" type="checkbox" value="rtl_view">
+                <label for="checkbox1">RTL Version</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox ms_bar">
+                <input id="checkbox2" type="checkbox" value="mini_active">
+                <label for="checkbox2">Mini Sidebar</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox3" type="checkbox" checked="">
+                <label for="checkbox3">Notifications</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox4" type="checkbox">
+                <label for="checkbox4">Auto Updates</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox5" type="checkbox" checked="">
+                <label for="checkbox5">Offline</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <input id="checkbox6" type="checkbox" checked="">
+                <label for="checkbox6">Location Permission</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane right_chat" id="chat">
+      <div class="slim_scroll">
+        <div class="card">
+          <ul class="list-unstyled">
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar4.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Sophia <small class="float-right">11:00AM</small></span>
+                    <span class="message">There are many variations of passages of Lorem Ipsum available</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar5.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Grayson <small class="float-right">11:30AM</small></span>
+                    <span class="message">All the Lorem Ipsum generators on the</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="offline">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar2.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Isabella <small class="float-right">11:31AM</small></span>
+                    <span class="message">Contrary to popular belief, Lorem Ipsum</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="me">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar1.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">John <small class="float-right">05:00PM</small></span>
+                    <span class="message">It is a long established fact that a reader</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="online">
+              <a href="javascript:void(0);">
+                <div class="media">
+                  <img class="media-object " src="/assets/images/xs/avatar3.jpg" alt="">
+                  <div class="media-body">
+                    <span class="name">Alexander <small class="float-right">06:08PM</small></span>
+                    <span class="message">Richard McClintock, a Latin professor</span>
+                    <span class="badge badge-outline status"></span>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main Content -->
+
+<section class="content">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-7 col-md-6 col-sm-12">
+        <h2>Dashboard</h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+          <li class="breadcrumb-item "><a th:href="@{/home/admin/users}"><i class="zmdi zmdi-home"></i> List of users</a></li>
+          <li class="breadcrumb-item active">Edit</li>
+        </ul>
+        <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
+      </div>
+      <div class="col-lg-5 col-md-6 col-sm-12">
+        <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form id="user-form" th:action="@{/home/admin/users/update}" method="post" enctype="multipart/form-data">
+      <!-- Hidden field to store user ID -->
+      <input type="hidden" name="userId" th:value="${user.id}">
+      <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="account-settings">
+                <div class="user-profile">
+                  <!-- Profile Picture Upload -->
+                  <div class="user-avatar">
+                    <label for="upload-avatar">
+                      <img id="user-avatar-img" th:src="${profilePicture}" alt="User Avatar">
+                      <div class="upload-icon">
+                        <i class="fas fa-camera"></i> <!-- Font Awesome camera icon -->
+                      </div>
+                    </label>
+                    <input type="file" id="upload-avatar" name="profilePicture" accept="image/*" style="display: none;">
+                  </div>
+                  <h5 class="user-name" th:text="${user.firstName} + ' ' + ${user.lastName}"></h5>
+                  <h6 class="user-email" th:text="${user.email}"></h6>
+                </div>
+                <div class="about">
+                  <div class="about-details">
+                    <div class="detail-item">
+                      <label for="user-role">Role:</label>
+                      <p id="user-role" th:text="${user.role.name}"></p>
+                    </div>
+                    <div class="detail-item">
+                      <label for="department-name">Department:</label>
+                      <p id="department-name" th:text="${user.department.name}"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-2 text-primary">Personal Details</h6>
+                </div>
+
+                <!-- Username -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control input-field" id="username" name="username" th:value="${user.username}" placeholder="Enter username" required>
+                    <small id="username-error" class="form-text"></small>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control input-field" id="email" name="email" th:value="${user.email}" placeholder="Enter email" required>
+                    <small id="email-error" class="form-text"></small>
+                  </div>
+                </div>
+
+                <!-- First Name -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control input-field" id="firstName" name="firstName" th:value="${user.firstName}" placeholder="Enter first name" required>
+                  </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control input-field" id="lastName" name="lastName" th:value="${user.lastName}" placeholder="Enter last name" required>
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control input-field" id="password" name="password" placeholder="Enter new password (leave blank to keep current)">
+                  </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control input-field" id="phone" name="phone" th:value="${user.phone}" placeholder="Enter phone number" required>
+                    <small id="phone-error" class="form-text"></small>
+                  </div>
+                </div>
+
+                <!-- Address -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control input-field" id="address" name="address" th:value="${user.address}" placeholder="Enter address" required>
+                  </div>
+                </div>
+
+                <!-- Department Dropdown -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group form-float">
+                    <label for="department">Department</label>
+                    <select id="department" class="form-control input-field" name="departmentId" required>
+                      <option value="" disabled>-- Please select --</option>
+                      <option th:each="dp : ${departments}"
+                              th:value="${dp.id}"
+                              th:text="${dp.name}"
+                              th:selected="${dp.id == user.department.id}"></option>
+                    </select>
+                    <small id="department-error" class="form-text"></small>
+                  </div>
+                </div>
+
+                <!-- Role Dropdown -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group form-float">
+                    <label for="role">Role</label>
+                    <select id="role" class="form-control input-field" name="roleId" required>
+                      <option value="" disabled>-- Please select --</option>
+                      <option th:each="role : ${roles}"
+                              th:value="${role.id}"
+                              th:text="${role.name}"
+                              th:selected="${role.id == user.role.id}"></option>
+                    </select>
+                    <small id="role-error" class="form-text"></small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="text-right">
+                    <button type="submit" id="submit" name="submit" class="btn ultra-wavy-button">Update</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<!-- Jquery Core Js -->
+<script src="/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
+<script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
+
+<script src="/assets/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
+<script src="/assets/bundles/sparkline.bundle.js"></script> <!-- Sparkline Plugin Js -->
+<script src="/assets/bundles/c3.bundle.js"></script>
+<script src="/assets/plugins/jquery-validation/jquery.validate.js"></script> <!-- Jquery Validation Plugin Css -->
+<script src="/assets/plugins/jquery-steps/jquery.steps.js"></script> <!-- JQuery Steps Plugin Js -->
+<script src="/assets/js/pages/forms/form-wizard.js"></script>
+<!-- Jquery DataTable Plugin Js -->
+<script src="/assets/bundles/datatablescripts.bundle.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.flash.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.html5.min.js"></script>
+<script src="/assets/plugins/jquery-datatable/buttons/buttons.print.min.js"></script>
+<script src="/assets/js/pages/forms/form-validation.js"></script>
+<script src="/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script> <!-- Bootstrap Colorpicker Js -->
+<script src="/assets/plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script> <!-- Input Mask Plugin Js -->
+<script src="/assets/plugins/multi-select/js/jquery.multi-select.js"></script> <!-- Multi Select Plugin Js -->
+<script src="/assets/plugins/jquery-spinner/js/jquery.spinner.js"></script> <!-- Jquery Spinner Plugin Js -->
+<script src="/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script> <!-- Bootstrap Tags Input Plugin Js -->
+<script src="/assets/plugins/nouislider/nouislider.js"></script> <!-- noUISlider Plugin Js -->
+
+<script src="/assets/plugins/select2/select2.min.js"></script> <!-- Select2 Js -->
+<script src="/assets/js/pages/forms/basic-form-elements.js"></script>
+<script src="/assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
+<script src="/assets/js/pages/tables/jquery-datatable.js"></script>
+<script src="/assets/js/pages/forms/advanced-form-elements.js"></script>
+
+
+
+
+
+
+<script>
+  document.getElementById('upload-avatar').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('user-avatar-img').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+
+  $(document).ready(function() {
+    function checkAvailability(field, value, userId) {
+      $.ajax({
+        url: '/home/admin/users/edit/validate',
+        type: 'GET',
+        data: {
+          field: field,
+          value: value,
+          userId: userId
+        },
+        success: function(response) {
+          let isValid = response[field] === "";
+
+          // Update field style based on validity
+          if (isValid) {
+            $('#' + field).removeClass('error').addClass('success');
+            $('#' + field + '-error').text('');
+          } else {
+            $('#' + field).removeClass('success').addClass('error');
+            $('#' + field + '-error').text(response[field]);
+          }
+
+          // Enable/Disable submit button based on overall validity
+          checkFormValidity();
+        }
+      });
+    }
+
+    function checkFormValidity() {
+      let isValid = true;
+      ['username', 'email', 'phone'].forEach(function(field) {
+        if ($('#' + field + '-error').text() !== '') {
+          isValid = false;
+        }
+      });
+
+      $('#submit').prop('disabled', !isValid);
+    }
+
+    $('#username, #email, #phone').on('input', function() {
+      var field = $(this).attr('id');
+      var userId = $('input[name="userId"]').val();
+      checkAvailability(field, $(this).val(), userId);
+    });
+  });
+
+
+
+
+
+
+  $(document).ready(function() {
+    $('#user-form').on('submit', function(event) {
+      let isValid = true;
+
+      // Loop through all required fields
+      $(this).find('input[required], select[required]').each(function() {
+        if ($(this).val().trim() === '') {
+          $(this).addClass('error');
+          $(this).next('.form-text').text('This field is required.');
+          isValid = false;
+        } else {
+          $(this).removeClass('error').addClass('success');
+          $(this).next('.form-text').text('');
+        }
+      });
+
+      // Prevent form submission if invalid
+      if (!isValid) {
+        event.preventDefault();
+      }
+    });
+  });
+
+</script>
+</body>
+</html>
