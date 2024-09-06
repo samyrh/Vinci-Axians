@@ -142,7 +142,7 @@ This project is licensed under the MIT License.
 
 For inquiries or support, please contact:
 
-- **Email:** Rhalimsami8.com
+- **Email:** Rhalimsami8@gmail.com
 - **Website:** [Axians Website](https://axians.com)
 
 ---
