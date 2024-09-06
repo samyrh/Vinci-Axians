@@ -2,6 +2,8 @@ package vinci.ma.inventory.web.controllers.AdminController;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,7 @@ import vinci.ma.inventory.dao.entities.Notification;
 import vinci.ma.inventory.dao.repositories.AdminRepo;
 import vinci.ma.inventory.dao.repositories.NotificationRepo;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,17 +40,27 @@ public class NotificationsController {
     public String showNotifications(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
+            Authentication authentication, // Add this parameter
             Model model) {
 
-        Optional<Admin> adminOptional = adminRepo.findById(1L);
-        if (!adminOptional.isPresent()) {
+        // Retrieve the currently logged-in admin's username
+        String username = authentication.getName();
+
+        // Fetch the admin using the username
+        Admin admin = adminRepo.findAdminByUsername(username);
+        if (admin == null) {
             model.addAttribute("error", "Admin not found");
             return "error"; // Ensure you have an error.html for this case
         }
-
-        Admin admin = adminOptional.get();
-
+        model.addAttribute("loggedInAdmin", admin);
+        if (admin.getAdminPicture() != null) {
+            String base1 = Base64.getEncoder().encodeToString(admin.getAdminPicture());
+            model.addAttribute("adminPicture", "data:image/jpeg;base64," + base1);
+        }
+        // Set up pagination
         Pageable pageable = PageRequest.of(page, size);
+
+        // Fetch notifications for the logged-in admin
         Page<Notification> notificationPage = notificationRepo.findAllByAdminId(admin.getId(), pageable);
 
         model.addAttribute("notifications", notificationPage.getContent());
@@ -56,20 +69,28 @@ public class NotificationsController {
         model.addAttribute("totalElements", notificationPage.getTotalElements());
         model.addAttribute("size", size); // Pass size to template for pagination controls
 
+
         return "notifications";
     }
 
-    @GetMapping("/clear")
-    public String clearNotifications() {
-        // Find the admin by id
-        Optional<Admin> admin = adminRepo.findById(1L);
 
-        if (admin.isPresent()) {
-            // Delete all notifications associated with this admin
-            notificationRepo.deleteByAdminId(1L);
+    @GetMapping("/clear")
+    public String clearNotifications(Authentication authentication) {
+        // Retrieve the currently logged-in admin's username
+        String username = authentication.getName();
+
+        // Fetch the admin using the username
+        Admin admin = adminRepo.findAdminByUsername(username);
+        if (admin == null) {
+            // Handle the case where the admin is not found, if necessary
+            return "error"; // Ensure you have an error.html for this case
         }
+
+        // Delete all notifications associated with this admin
+        notificationRepo.deleteByAdminId(admin.getId());
 
         // Redirect to the notifications page after deletion
         return "redirect:/home/admin/notifications";
     }
+
 }

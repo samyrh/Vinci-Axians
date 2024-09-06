@@ -337,8 +337,8 @@
 <!-- Main Search -->
 <div id="search">
     <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
-    <form>
-        <input type="search" value="" placeholder="Search..." />
+    <form th:action="@{/home/search}" method="get">
+        <input name="query" type="search" value="" placeholder="Search...Category,Material,User Anything..." />
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 </div>
@@ -571,10 +571,10 @@
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+                    <a class="image" th:href="@{/home/admin/profil}"><img th:src="${adminPicture}" alt="User"></a>
                     <div class="detail">
-                        <h4>Michael</h4>
-                        <small>Super Admin</small>
+                        <h4 th:text="${loggedInAdmin.username}"></h4>
+                        <small>Admin</small>
                     </div>
                 </div>
             </li>

@@ -275,8 +275,8 @@
 <!-- Main Search -->
 <div id="search">
   <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
-  <form>
-    <input type="search" value="" placeholder="Search..." />
+  <form th:action="@{/home/search}" method="get">
+    <input name="query" type="search" value="" placeholder="Search...Category,Material,User Anything..." />
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
 </div>
@@ -509,22 +509,21 @@
     <ul class="list">
       <li>
         <div class="user-info">
-          <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+          <a class="image" th:href="@{/home/admin/profil}"><img th:src="${adminPicture}" alt="User"></a>
           <div class="detail">
-            <h4>Michael</h4>
-            <small>Super Admin</small>
+            <h4 th:text="${loggedInAdmin.username}">l</h4>
+            <small>Admin</small>
           </div>
         </div>
       </li>
       <li class="active open"><a th:href="@{/home/admin}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
       <li><a th:href="@{/home/admin/profil}"><i class="zmdi zmdi-account"></i><span>Profile</span></a></li>
       <li><a th:href="@{/home/admin/material}"><i class="zmdi zmdi-shopping-cart"></i><span>List of Materials</span></a></li>
-      <li><a href="my-profile.html"><i class="zmdi zmdi-collection-add"></i><span>List of Categories</span></a></li>
-      <li><a href="my-profile.html"><i class="zmdi zmdi-store"></i><span>List of Suppliers</span></a></li>
-      <li><a href="my-profile.html"><i class="zmdi zmdi-shopping-basket"></i><span>List of Orders</span></a></li>
-      <li><a href="my-profile.html"><i class="zmdi zmdi-folder-person"></i><span>List of Users</span></a></li>
-      <li><a href="my-profile.html"><i class="zmdi zmdi-notifications"></i><span>Notifications</span></a></li>
-      <li><a href="my-profile.html"><i class="zmdi zmdi-inbox"></i><span>INBOX</span></a></li>
+      <li><a th:href="@{/home/admin/category}"><i class="zmdi zmdi-collection-add"></i><span>List of Categories</span></a></li>
+      <li><a th:href="@{/home/admin/suppliers}"><i class="zmdi zmdi-store"></i><span>List of Suppliers</span></a></li>
+      <li><a th:href="@{/home/admin/users}"><i class="zmdi zmdi-folder-person"></i><span>List of Users</span></a></li>
+      <li><a th:href="@{/home/admin/notifications}"><i class="zmdi zmdi-notifications"></i><span>Notifications</span></a></li>
+      <li><a th:href="@{/home/admin/inbox}"><i class="zmdi zmdi-inbox"></i><span>INBOX</span></a></li>
       <li>
         <div class="progress-container progress-primary m-t-10">
           <span class="progress-badge">Traffic this Month</span>

@@ -7,6 +7,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -96,6 +98,16 @@ public class MaterialController {
                 .collect(Collectors.groupingBy(Material::getCategory));
         model.addAttribute("materialsByCategory", materialsByCategory);
 
+
+        // Fetch the currently logged-in admin
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Admin loggedInAdmin = adminRepo.findAdminByUsername(username);
+        model.addAttribute("loggedInAdmin", loggedInAdmin);
+        if (loggedInAdmin.getAdminPicture() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(loggedInAdmin.getAdminPicture());
+            model.addAttribute("adminPicture", "data:image/jpeg;base64," + base64Image);
+        }
         return "material";
     }
 
@@ -132,7 +144,18 @@ public class MaterialController {
                               @RequestParam("ref") String ref,
                               @RequestParam("categoryId") Long categoryId,
                               @RequestParam("supplierId") List<Long> supplierIds,
-                              @RequestParam("image") MultipartFile image) throws IOException {
+                              @RequestParam("image") MultipartFile image,
+                              Authentication authentication) throws IOException {
+
+        // Retrieve the currently logged-in admin's username
+        String username = authentication.getName();
+
+        // Fetch the admin using the username
+        Admin admin = adminRepo.findAdminByUsername(username);
+        if (admin == null) {
+            // Handle case where admin is not found
+            return "redirect:/home/admin/material";
+        }
 
         Material material = new Material();
         material.setName(name);
@@ -146,7 +169,6 @@ public class MaterialController {
         if (category != null) {
             material.setCategory(category);
         } else {
-
             return "redirect:/home/admin/material";
         }
 
@@ -159,7 +181,6 @@ public class MaterialController {
             try {
                 material.setImage(image.getBytes());
             } catch (IOException e) {
-
                 return "redirect:/home/admin/material";
             }
         }
@@ -169,17 +190,17 @@ public class MaterialController {
         // Save the material
         Material savedMaterial = materialRepo.save(material);
 
-        // Link the material with the admin
-        Admin admin = adminManager.getAdminById(1L);
+        // Link the material with the logged-in admin
         admin.getMaterials().add(savedMaterial);
         adminRepo.save(admin);
 
-        // Notify admins and admin users about the new category creation
+        // Notify admins and admin users about the new material creation
         String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new Date());
-        notificationManager.notifyAdminsAndAdminUsersAboutCreateMaterial(name,timestamp,admin.getUsername());
+        notificationManager.notifyAdminsAndAdminUsersAboutCreateMaterial(name, timestamp, admin.getUsername());
 
         return "redirect:/home/admin/material";
     }
+
 
     @GetMapping("/validate")
     public ResponseEntity<Map<String, String>> validateMaterialFields(
@@ -228,15 +249,28 @@ public class MaterialController {
 
 
     @GetMapping("/delete/{id}")
-    public String deleteMaterial(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String deleteMaterial(@PathVariable Long id,
+                                 RedirectAttributes redirectAttributes,
+                                 Authentication authentication) {
         try {
-            Admin admin = adminManager.getAdminById(1L);
+            // Retrieve the currently logged-in admin's username
+            String username = authentication.getName();
+
+            // Fetch the admin using the username
+            Admin admin = adminRepo.findAdminByUsername(username);
+            if (admin == null) {
+                // Handle case where admin is not found
+                redirectAttributes.addFlashAttribute("error", "Admin not found.");
+                return "redirect:/home/admin/material";
+            }
+
             Material deletedMaterial = materialManager.getMaterialById(id);
-            // Notify admins and admin users about the new category creation
+
+            // Notify admins and admin users about the material deletion
             String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new Date());
-            notificationManager.notifyAdminsAndAdminUsersAboutDeleteMaterial(deletedMaterial.getName(),timestamp,admin.getUsername());
+            notificationManager.notifyAdminsAndAdminUsersAboutDeleteMaterial(deletedMaterial.getName(), timestamp, admin.getUsername());
 
-
+            // Delete the material
             materialManager.deleteMaterial(id);
             redirectAttributes.addFlashAttribute("message", "Material deleted successfully.");
         } catch (EntityNotFoundException e) {
@@ -264,7 +298,15 @@ public class MaterialController {
         model.addAttribute("suppliers", suppliers);
         model.addAttribute("material", materialDetails);
         model.addAttribute("comments", comments);
-
+        // Fetch the currently logged-in admin
+        Authentication authenticationn = SecurityContextHolder.getContext().getAuthentication();
+        String username = authenticationn.getName();
+        Admin loggedInAdmin = adminRepo.findAdminByUsername(username);
+        model.addAttribute("loggedInAdmin", loggedInAdmin);
+        if (loggedInAdmin.getAdminPicture() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(loggedInAdmin.getAdminPicture());
+            model.addAttribute("adminPicture", "data:image/jpeg;base64," + base64Image);
+        }
         return "materialDetails";
     }
 
@@ -338,7 +380,8 @@ public class MaterialController {
             @RequestParam(value = "ref", required = false) String ref,
             @RequestParam("categoryId") Long categoryId,
             @RequestParam("supplierId") List<Long> supplierIds,
-            @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
+            @RequestParam(value = "image", required = false) MultipartFile image,
+            Authentication authentication) throws IOException {
 
         // Retrieve the existing material
         Material material = materialManager.getMaterialById(materialId);
@@ -373,25 +416,46 @@ public class MaterialController {
         // Save updated material
         materialRepo.save(material);
 
-        Admin admin = adminManager.getAdminById(1L);
-        // Notify admins and admin users about the new category creation
-        String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new Date());
-        notificationManager.notifyAdminsAndAdminUsersUpdateMaterial(name,ref,timestamp,admin.getUsername());
-        // Notify admins about the update
+        // Retrieve the currently logged-in admin's username
+        String username = authentication.getName();
 
+        // Fetch the admin using the username
+        Admin admin = adminRepo.findAdminByUsername(username);
+        if (admin == null) {
+            // Handle case where admin is not found
+            return "redirect:/home/admin/material";
+        }
+
+        // Notify admins and admin users about the material update
+        String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new Date());
+        notificationManager.notifyAdminsAndAdminUsersUpdateMaterial(name, ref, timestamp, admin.getUsername());
 
         // Redirect to the updated material details page
         return "redirect:/home/admin/material/details/" + materialId;
     }
 
+
     @PostMapping("/add/comment/{materialId}")
-    @ResponseBody // This indicates that the response should be directly written to the body
+    @ResponseBody
     public ResponseEntity<String> addCommentAndNotify(
             @PathVariable Long materialId,
-            @RequestParam String content) {
+            @RequestParam String content,
+            Authentication authentication) {
 
+        // Retrieve the material by ID
         Material material = materialManager.getMaterialById(materialId);
-        Admin adminWhoMadeComment = adminManager.getAdminById(1L); // Assume the admin ID is 1L for this example
+        if (material == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Material not found.");
+        }
+
+        // Retrieve the currently logged-in admin's username
+        String username = authentication.getName();
+
+        // Fetch the admin using the username
+        Admin adminWhoMadeComment = adminRepo.findAdminByUsername(username);
+        if (adminWhoMadeComment == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Admin not found.");
+        }
 
         // Create and save the comment
         Comment comment = new Comment();
@@ -437,6 +501,7 @@ public class MaterialController {
 
         return ResponseEntity.ok("Comment added and notifications sent successfully.");
     }
+
 
 }
 

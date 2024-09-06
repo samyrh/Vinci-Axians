@@ -266,10 +266,10 @@
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+                    <a class="image" th:href="@{/home/admin/profil}"><img th:if="${adminPicture}" th:src="${adminPicture}" alt="User"></a>
                     <div class="detail">
-                        <h4>Michael</h4>
-                        <small>Super Admin</small>
+                        <h4 th:text="${admin.username}"></h4>
+                        <small>Admin</small>
                     </div>
                 </div>
             </li>

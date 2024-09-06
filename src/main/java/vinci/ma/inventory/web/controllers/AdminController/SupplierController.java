@@ -9,12 +9,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vinci.ma.inventory.dao.entities.Admin;
 import vinci.ma.inventory.dao.entities.Material;
 import vinci.ma.inventory.dao.entities.Supplier;
+import vinci.ma.inventory.dao.repositories.AdminRepo;
 import vinci.ma.inventory.dao.repositories.MaterialRepo;
 import vinci.ma.inventory.dao.repositories.SupplierRepo;
 import vinci.ma.inventory.services.managers.MaterialManager;
@@ -34,7 +38,8 @@ public class SupplierController {
     private SupplierRepo supplierRepo;
     @Autowired
     private NotificationManager notificationManager;
-
+    @Autowired
+    private AdminRepo adminRepo;
     @Autowired
     private MaterialRepo materialRepo;
     @Autowired
@@ -55,6 +60,15 @@ public class SupplierController {
         model.addAttribute("suppliers", suppliers);
         model.addAttribute("badgeColors", badgeColors);
 
+        // Fetch the currently logged-in admin
+        Authentication authenticationn = SecurityContextHolder.getContext().getAuthentication();
+        String username = authenticationn.getName();
+        Admin loggedInAdmin = adminRepo.findAdminByUsername(username);
+        model.addAttribute("loggedInAdmin", loggedInAdmin);
+        if (loggedInAdmin.getAdminPicture() != null) {
+            String base1 = Base64.getEncoder().encodeToString(loggedInAdmin.getAdminPicture());
+            model.addAttribute("adminPicture", "data:image/jpeg;base64," + base1);
+        }
         return "suppliers"; // Ensure this is the name of your Thymeleaf template file
     }
 
@@ -159,6 +173,15 @@ public class SupplierController {
             }
         }
         model.addAttribute("materials", materials);
+        // Fetch the currently logged-in admin
+        Authentication authenticationn = SecurityContextHolder.getContext().getAuthentication();
+        String username = authenticationn.getName();
+        Admin loggedInAdmin = adminRepo.findAdminByUsername(username);
+        model.addAttribute("loggedInAdmin", loggedInAdmin);
+        if (loggedInAdmin.getAdminPicture() != null) {
+            String base1 = Base64.getEncoder().encodeToString(loggedInAdmin.getAdminPicture());
+            model.addAttribute("adminPicture", "data:image/jpeg;base64," + base1);
+        }
         return "supplierDetails";
     }
 

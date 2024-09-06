@@ -2,11 +2,14 @@ package vinci.ma.inventory.web.controllers.AdminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vinci.ma.inventory.dao.entities.Admin;
 import vinci.ma.inventory.dao.entities.Department;
 import vinci.ma.inventory.dao.entities.Role;
 import vinci.ma.inventory.dao.entities.User;
@@ -75,7 +78,15 @@ public class UsersController {
 
         model.addAttribute("departmentsDto", departmentDTOs);
 
-
+        // Fetch the currently logged-in admin
+        Authentication authenticationn = SecurityContextHolder.getContext().getAuthentication();
+        String username = authenticationn.getName();
+        Admin loggedInAdmin = adminRepository.findAdminByUsername(username);
+        model.addAttribute("loggedInAdmin", loggedInAdmin);
+        if (loggedInAdmin.getAdminPicture() != null) {
+            String base1 = Base64.getEncoder().encodeToString(loggedInAdmin.getAdminPicture());
+            model.addAttribute("adminPicture", "data:image/jpeg;base64," + base1);
+        }
         return "users";
     }
 
@@ -193,7 +204,15 @@ public class UsersController {
 
         model.addAttribute("departments", departments);
         model.addAttribute("roles", roles);
-
+        // Fetch the currently logged-in admin
+        Authentication authenticationn = SecurityContextHolder.getContext().getAuthentication();
+        String username = authenticationn.getName();
+        Admin loggedInAdmin = adminRepository.findAdminByUsername(username);
+        model.addAttribute("loggedInAdmin", loggedInAdmin);
+        if (loggedInAdmin.getAdminPicture() != null) {
+            String base1 = Base64.getEncoder().encodeToString(loggedInAdmin.getAdminPicture());
+            model.addAttribute("adminPicture", "data:image/jpeg;base64," + base1);
+        }
         return "edituser"; // Thymeleaf template name
     }
 
@@ -293,6 +312,15 @@ public class UsersController {
 
             model.addAttribute("userDetail", user);
             model.addAttribute("profilePicture", base64Image);
+            // Fetch the currently logged-in admin
+            Authentication authenticationn = SecurityContextHolder.getContext().getAuthentication();
+            String username = authenticationn.getName();
+            Admin loggedInAdmin = adminRepository.findAdminByUsername(username);
+            model.addAttribute("loggedInAdmin", loggedInAdmin);
+            if (loggedInAdmin.getAdminPicture() != null) {
+                String base1 = Base64.getEncoder().encodeToString(loggedInAdmin.getAdminPicture());
+                model.addAttribute("adminPicture", "data:image/jpeg;base64," + base1);
+            }
             return "userDetails"; // Thymeleaf template name without .html extension
         } else {
             return "error"; // Handle user not found
