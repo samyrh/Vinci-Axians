@@ -2,6 +2,7 @@ package vinci.ma.inventory.web.controllers.AuthController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class AuthentificationController {
+public class AuthenticationController {
 
     @Autowired
     private AdminRepo adminRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Ensure this is properly autowired
+
 
     @GetMapping("/login")
     public String showLogin() {
@@ -61,20 +65,25 @@ public class AuthentificationController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/register/add/admin")
     public String registerAdmin(
             @RequestParam String username,
             @RequestParam String email,
             @RequestParam String phone,
             @RequestParam String password,
-            @RequestParam("adminPicture") MultipartFile profilePic) { // Handle file upload
+            @RequestParam("adminPicture") MultipartFile profilePic) {
 
         // Validate that the fields are not empty
         if (username.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
             return "redirect:/register?error=Please fill in all fields";
         }
 
-        // Check if file is empty and handle file upload
+        // Check if the admin already exists (Optional: additional validation)
+        if (adminRepo.findAdminByUsername(username)!= null) {
+            return "redirect:/register?error=Username already exists";
+        }
+
+        // Handle profile picture
         byte[] profilePicData = null;
         if (!profilePic.isEmpty()) {
             try {
@@ -90,12 +99,14 @@ public class AuthentificationController {
         newAdmin.setUsername(username);
         newAdmin.setEmail(email);
         newAdmin.setPhone(phone);
-        newAdmin.setPassword(password); // Consider hashing the password
-        newAdmin.setAdminPicture(profilePicData); // Store profile picture as byte array
+        newAdmin.setPassword(passwordEncoder.encode(password));
+        newAdmin.setAdminPicture(profilePicData);
 
         // Save the new admin to the database
         adminRepo.save(newAdmin);
 
+
         return "redirect:/login?success=Registration successful";
     }
+
 }
