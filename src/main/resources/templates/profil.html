@@ -393,10 +393,10 @@
     <ul class="list">
       <li>
         <div class="user-info">
-          <a class="image" th:href="@{/home/admin/profil}"><img src="/assets/images/profile_av.jpg" alt="User"></a>
+          <a class="image" th:href="@{/home/admin/profil}"><img th:src="${adminPicture}" alt="User"></a>
           <div class="detail">
-            <h4>Michael</h4>
-            <small>Super Admin</small>
+            <h4 th:text="${loggedInAdmin.username}"></h4>
+            <small>Admin</small>
           </div>
         </div>
       </li>
@@ -603,7 +603,7 @@
           <div class="card mcard_3">
             <div class="body">
               <a th:href="@{/home/admin/profil/edit}"><img th:src="${adminPicture}" class="rounded-circle shadow " alt="profile-image"></a>
-              <h4 class="m-t-10" th:text="${admin.username}">Michael Dorsey</h4>
+              <h4 class="m-t-10" th:text="${loggedInAdmin.username}">Michael Dorsey</h4>
               <div class="row">
                 <div class="col-12">
                   <ul class="social-links list-unstyled">
@@ -612,7 +612,7 @@
                     <li><a title="instagram" href="javascript:void(0);"><i class="zmdi zmdi-instagram"></i></a></li>
                   </ul>
                   <div class="department-card">
-                    <p class="department-name" th:text="${admin.department.name} + ' Department'">Department Name :</p>
+                    <p class="department-name" th:text="${loggedInAdmin.department.name} + ' Department'">Department Name :</p>
                   </div>
                 </div>
               </div>
@@ -623,14 +623,14 @@
               <!-- Email Address -->
               <div class="profile-info">
                 <small class="profile-label">Email Address :</small>
-                <p class="profile-value" th:text="${admin.email}">example@example.com</p>
+                <p class="profile-value" th:text="${loggedInAdmin.email}">example@example.com</p>
               </div>
               <hr class="profile-divider">
 
               <!-- Phone -->
               <div class="profile-info">
                 <small class="profile-label">Phone :</small>
-                <p class="profile-value" th:text="${admin.phone}">+1234567890</p>
+                <p class="profile-value" th:text="${loggedInAdmin.phone}">+1234567890</p>
               </div>
               <hr class="profile-divider">
 

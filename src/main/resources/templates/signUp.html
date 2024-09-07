@@ -18,6 +18,23 @@
       background: url('/assets/images/blue-aesthetic-5120x2880-18229.png') no-repeat center center fixed;
       background-size: cover;
     }
+    /* Style for select fields */
+    select.form-control {
+      border: 1px solid #ced4da;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Highlight the select field with a red border if there is an error */
+    select.form-control.error {
+      border-color: red;
+      background-color: #f8d7da;
+    }
+
+    /* Highlight the select field with a green border if it is valid */
+    select.form-control.valid {
+      border-color: #28a745;
+      background-color: #d4edda;
+    }
 
     /* Style for input fields */
     input.form-control {
@@ -235,6 +252,16 @@
                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
               </div>
             </div>
+            <!-- Department select box -->
+            <div class="input-group mb-3">
+              <select id="department" name="department" class="form-control">
+                <option value="">Select Department</option>
+                <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+              </select>
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-building"></i></span>
+              </div>
+            </div>
             <div class="input-group mb-3">
               <input type="password" id="password" name="password" class="form-control" placeholder="Password with 6 char">
               <div class="input-group-append">
@@ -320,6 +347,14 @@
         $('#phone').removeClass('error').addClass('valid');
       }
 
+      // Check department selection
+      if ($('#department').val().trim() === '') {
+        $('#department').addClass('error').removeClass('valid');
+        valid = false;
+      } else {
+        $('#department').removeClass('error').addClass('valid');
+      }
+
       // Check password
       const password = $('#password').val().trim();
       if (password.length < minPasswordLength) {
@@ -356,7 +391,7 @@
     }
 
     // Validate form on input change
-    $('#registrationForm input').on('input change', function () {
+    $('#registrationForm input, #registrationForm select').on('input change', function () {
       validateForm();
     });
 
@@ -371,6 +406,7 @@
     // Initial validation on page load
     validateForm();
   });
+
 </script>
 
 </body>

@@ -4,16 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import vinci.ma.inventory.dao.entities.Admin;
+import vinci.ma.inventory.dao.entities.Department;
 import vinci.ma.inventory.dao.repositories.AdminRepo;
+import vinci.ma.inventory.dao.repositories.DepartmentRepo;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -23,7 +27,8 @@ public class AuthenticationController {
     private AdminRepo adminRepo;
     @Autowired
     private PasswordEncoder passwordEncoder; // Ensure this is properly autowired
-
+    @Autowired
+    private DepartmentRepo departmentRepo;
 
     @GetMapping("/login")
     public String showLogin() {
@@ -31,7 +36,10 @@ public class AuthenticationController {
     }
 
     @GetMapping("/register")
-    public String showRegister() {
+    public String showRegister(Model model) {
+
+        List<Department> departments = departmentRepo.findAll();
+        model.addAttribute("departments",departments);
         return "signUp"; // returns the view name for the registration page
     }
 
@@ -71,12 +79,16 @@ public class AuthenticationController {
             @RequestParam String email,
             @RequestParam String phone,
             @RequestParam String password,
+            @RequestParam("department") Long departmentId,
             @RequestParam("adminPicture") MultipartFile profilePic) {
 
         // Validate that the fields are not empty
         if (username.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
             return "redirect:/register?error=Please fill in all fields";
         }
+        // Fetch department by ID
+        Department department = departmentRepo.findById(departmentId)
+                .orElseThrow(() -> new RuntimeException("Department not found"));
 
         // Check if the admin already exists (Optional: additional validation)
         if (adminRepo.findAdminByUsername(username)!= null) {
@@ -99,6 +111,7 @@ public class AuthenticationController {
         newAdmin.setUsername(username);
         newAdmin.setEmail(email);
         newAdmin.setPhone(phone);
+        newAdmin.setDepartment(department);
         newAdmin.setPassword(passwordEncoder.encode(password));
         newAdmin.setAdminPicture(profilePicData);
 

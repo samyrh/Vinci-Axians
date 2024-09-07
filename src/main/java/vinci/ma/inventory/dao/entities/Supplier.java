@@ -25,5 +25,7 @@ public class Supplier {
     @ManyToMany(mappedBy = "suppliers")
     private List<Material> materials;
 
-
+    public int getMaterialCount() {
+        return materials != null ? materials.size() : 0;
+    }
 }

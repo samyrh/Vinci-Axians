@@ -14,6 +14,26 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="/assets/css/style.min.css">
+    <style>
+
+        /* Refined styles for chart containers */
+        .chart-container {
+            width: 100%;
+            height: 500px; /* Adjust height as needed */
+        }
+        .card-c {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+        }
+        .card-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body class="theme-blush">
@@ -474,9 +494,9 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card widget_2 big_icon traffic">
                     <div class="body">
-                        <h6>Traffic</h6>
-                        <h2>20 <small class="info">of 1Tb</small></h2>
-                        <small>2% higher than last month</small>
+                        <h6>TOTAL OF MATERIALS</h6>
+                        <h2>20 <small class="info">of 1 Category</small></h2>
+                        <small>Total Price</small>
                         <div class="progress">
                             <div class="progress-bar l-amber" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"></div>
                         </div>
@@ -520,6 +540,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card">
@@ -586,6 +607,9 @@
                             </div>
                         </div>
                     </div>
+
+
+
                     <div class="col-lg-12 col-md-12 col-sm-12 ">
                         <div class="card">
                             <div class="header">
@@ -643,8 +667,39 @@
                             </div>
                         </div>
                     </div>
-                    <div class="body">
-                        <div id="chart-area-spline-sracked" class="c3_chart d_sales"></div>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Category Pie Chart -->
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="card-c">
+                                    <div class="card-header">
+                                        <h2>Category Chart</h2>
+                                    </div>
+                                    <div id="chart-pie" class="chart-container"></div>
+                                </div>
+                            </div>
+
+                            <!-- Supplier Doughnut Chart -->
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="card-c">
+                                    <div class="card-header">
+                                        <h2>Supplier Chart</h2>
+                                    </div>
+                                    <div id="echart-doughnut" class="chart-container"></div>
+                                </div>
+                            </div>
+
+                            <!-- Department and Total Users Chart -->
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="card-c">
+                                    <div class="card-header">
+                                        <h2>Department Chart</h2>
+                                    </div>
+                                    <div id="chart-department" class="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -652,6 +707,7 @@
     </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
 
 <!-- Jquery Core Js -->
 <script src="/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
@@ -659,9 +715,101 @@
 
 <script src="/assets/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
 <script src="/assets/bundles/sparkline.bundle.js"></script> <!-- Sparkline Plugin Js -->
-<script src="/assets/bundles/c3.bundle.js"></script>
+
 
 <script src="/assets/bundles/mainscripts.bundle.js"></script>
+
+
 <script src="/assets/js/pages/index.js"></script>
+
+<script>
+    async function fetchChartData() {
+        try {
+            const [categoryResponse, supplierResponse, departmentResponse] = await Promise.all([
+                fetch('/category-data'),
+                fetch('/supplier-data'),
+                fetch('/department-data')
+            ]);
+
+            const categoryData = await categoryResponse.json();
+            const supplierData = await supplierResponse.json();
+            const departmentData = await departmentResponse.json();
+
+            return { categoryData, supplierData, departmentData };
+        } catch (error) {
+            console.error('Error fetching chart data:', error);
+        }
+    }
+
+    fetchChartData().then(({ categoryData, supplierData, departmentData }) => {
+        const categoryChart = echarts.init(document.getElementById('chart-pie'));
+        categoryChart.setOption({
+            title: { text: 'Materials per Category', left: 'center' },
+            tooltip: { trigger: 'item' },
+            series: [{
+                name: 'Materials',
+                type: 'pie',
+                radius: '50%',
+                data: categoryData.map(cat => ({ name: cat.name, value: cat.materialCount })),
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        });
+
+        const supplierChart = echarts.init(document.getElementById('echart-doughnut'));
+        supplierChart.setOption({
+            title: { text: 'Materials per Supplier', left: 'center' },
+            tooltip: { trigger: 'item' },
+            series: [{
+                name: 'Materials',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                data: supplierData.map(sup => ({ name: sup.name, value: sup.materialCount })),
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        });
+
+        // Initialize Bar Chart for Departments and Total Users
+        const departmentChart = echarts.init(document.getElementById('chart-department'));
+        departmentChart.setOption({
+            title: {
+                text: 'Users per Department',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                data: departmentData.map(dep => dep.name)
+            },
+            yAxis: {
+                type: 'value',
+                min: 0,
+                interval: 1,  // Set the interval to 1 for steps of 1
+                axisLabel: {
+                    formatter: '{value}'  // Optional: Format labels
+                }
+            },
+            series: [{
+                name: 'Users',
+                type: 'bar',
+                data: departmentData.map(dep => dep.userCount)
+            }]
+        });
+
+    });
+</script>
 </body>
 </html>

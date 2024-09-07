@@ -26,6 +26,8 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Admin> admins;
 
-
+    public int getUserCount() {
+        return users != null ? users.size() : 0;
+    }
 
 }

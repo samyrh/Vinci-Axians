@@ -24,5 +24,7 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Material> materials;
 
-
+    public int getMaterialCount() {
+        return materials != null ? materials.size() : 0;
+    }
 }
