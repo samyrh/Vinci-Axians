@@ -1,23 +1,30 @@
-
+Certainly! Here's the updated version of your document with the new changes you requested:
 
 ---
 
 # **Vinci App 🚀**
 
 **Overview:**
-Vinci App is a modern web application developed during my internship at Vinci, under the guidance of Axians. It is designed to streamline the management of material stocks through two distinct user interfaces: Admin and User. The application combines a powerful back-end with a dynamic front-end to provide a comprehensive solution for inventory management.
+Vinci App is a modern web application developed during my internship at Vinci, under the guidance of Axians. The application has two distinct sides:
+
+- **Admin Side**: Designed for managing user accounts, roles, permissions, and material stocks.
+- **AI Chat Side**: Realized using React.js, REST API, Vaadin, LLM (Large Language Models), and advanced tools like Olama and RAG (Retrieval Augmented Generation), leveraging Spring AI and PVGStore for a dynamic AI chatbot interface.
+
+The combination of these two sides allows Vinci App to streamline both inventory management and provide an advanced AI-powered chatbot interface for user support and interaction.
 
 **Features 🎨**
 
-- **Admin Interface 🛠️**
+- **Admin Side 🛠️**
   - **User Management:** Admins can add, update, and delete user accounts, manage user roles and permissions, and ensure proper access control.
   - **Role and Permission Management:** Admins have full control over defining and managing roles and permissions, ensuring that users have appropriate access based on their responsibilities.
   - **Inventory Management:** Admins can manage inventory items, including adding, updating, and deleting stock entries. They can view detailed reports and monitor stock levels to ensure optimal inventory management.
   - **Advanced Reporting:** Generate and view comprehensive reports on inventory status, user activities, and system performance.
 
-- **User Interface 🧑‍💼**
-  - **Personal Information Management:** Users can update their personal details, such as contact information and profile picture, directly from their dashboard.
-  - **Inventory Interaction:** Users can view and interact with inventory items, such as checking item details, stock levels, and availability. Depending on their permissions, users may also be able to request or reserve items.
+- **AI Chat Side 🤖**
+  - **AI Chatbot:** A dynamic chatbot interface realized using **React.js** for the front-end and **Vaadin** for the UI components. It is powered by **LLM (Large Language Models)** and technologies like **Olama** and **RAG (Retrieval Augmented Generation)** to provide intelligent responses and contextual assistance.
+  - **API Integration:** Utilizes REST APIs to connect with the back-end, enabling smooth communication between the AI model and the front-end interface.
+  - **Spring AI Integration:** Leveraging **Spring AI** to process and deliver responses, making the chat intelligent and responsive to user queries.
+  - **PVGStore for Model Storage:** Provides efficient storage and retrieval of models, ensuring that the AI chat operates with up-to-date data and contextual understanding.
 
 **Technologies Used 🛠️**
 
@@ -29,19 +36,23 @@ Vinci App is a modern web application developed during my internship at Vinci, u
 
 - **JPA (Java Persistence API)** 💾: Provides additional support for data persistence and mapping, working alongside Hibernate to manage database operations.
 
-- **DTO (Data Transfer Objects)** 📦: Facilitates efficient data transfer between different layers of the application, reducing overhead and improving performance.
-
 - **JWT (JSON Web Tokens)** 🗝️: Secures user sessions and API requests with token-based authentication, enhancing security and scalability.
 
 - **MySQL** 🗄️: The relational database management system used for storing and managing application data, offering reliability and performance.
 
 - **Tomcat Server** 🌐: The web server and servlet container used to deploy and run the Spring Boot application, providing a robust environment for handling HTTP requests and responses.
 
-- **React.js** ⚛️: The JavaScript library used for building the interactive and dynamic front-end interface. React.js provides a component-based architecture for creating reusable UI components and managing application state efficiently.
+- **React.js** ⚛️: The JavaScript library used for building the interactive and dynamic front-end interface for both the admin and AI chat interfaces.
 
-- **HTML/CSS/JavaScript** 🌐: Technologies used alongside React.js to create a responsive and interactive front-end, ensuring a seamless user experience across various devices.
+- **Vaadin** 🧩: Provides UI components for building a modern, reactive web interface, particularly used for the AI Chat side.
 
-- **API** 🔗: Exposes RESTful endpoints for interaction between the backend services and the front-end components, enabling smooth communication and data exchange.
+- **LLM (Large Language Models)** 🤖: Powers the AI chatbot's ability to generate contextual and intelligent responses.
+
+- **Olama and RAG** 🔗: Advanced tools used for retrieval-augmented generation, enhancing the AI chatbot’s ability to understand and respond to user queries with precision.
+
+- **Spring AI** 🧠: Used to manage AI models and their interactions, ensuring efficient and accurate responses from the chatbot.
+
+- **PVGStore** 🗂️: Ensures the proper management and storage of AI models, facilitating fast access and retrieval of the necessary models for the AI chatbot.
 
 - **Docker** 🐳: Provides containerization to ensure consistent deployment and running of the application across different environments.
 
@@ -120,15 +131,15 @@ Vinci App is a modern web application developed during my internship at Vinci, u
 
 - **Login 🔑**
   - **Admin:** Log in with admin credentials to access the admin dashboard for managing users, roles, and inventory.
-  - **User:** Log in with user credentials to manage personal information and interact with inventory items.
+  - **AI Chat Side:** Users can interact with the chatbot for intelligent assistance powered by AI.
 
 - **Managing Inventory 📦**
   - **Admin:** Perform tasks such as adding, updating, and deleting inventory items. Admins can also manage stock levels and generate detailed reports.
-  - **User:** View and interact with inventory items based on assigned permissions. Users can request or reserve items as needed.
 
-- **API Usage 📡**
-  - **Endpoints:** The application provides various REST API endpoints for interacting with inventory and user data.
-  - **Authentication:** API requests are secured using JWT tokens to ensure only authorized users can access protected resources.
+**API Usage 📡**
+
+- **Endpoints:** The application provides various REST API endpoints for interacting with inventory and user data, as well as for AI chat functionalities.
+- **Authentication:** API requests are secured using JWT tokens to ensure only authorized users can access protected resources.
 
 **Contributing 🤝**
 
@@ -146,4 +157,3 @@ For inquiries or support, please contact:
 - **Website:** [Axians Website](https://axians.com)
 
 ---
-
