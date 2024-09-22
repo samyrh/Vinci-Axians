@@ -16,6 +16,7 @@ The combination of these two sides allows Vinci App to streamline both inventory
   - **Role and Permission Management:** Admins have full control over defining and managing roles and permissions, ensuring that users have appropriate access based on their responsibilities.
   - **Inventory Management:** Admins can manage inventory items, including adding, updating, and deleting stock entries. They can view detailed reports and monitor stock levels to ensure optimal inventory management.
   - **Advanced Reporting:** Generate and view comprehensive reports on inventory status, user activities, and system performance.
+  - **Commenting on Materials:** Admins can comment on materials, providing feedback or additional information. Each admin can comment on multiple materials, and each material can receive comments from multiple admins.
 
 - **AI Chat Side 🤖**
   - **AI Chatbot:** A dynamic chatbot interface realized using **React.js** for the front-end and **Vaadin** for the UI components. It is powered by **LLM (Large Language Models)** and technologies like **Olama** and **RAG (Retrieval Augmented Generation)** to provide intelligent responses and contextual assistance.
