@@ -1,6 +1,3 @@
-Certainly! Here's the updated version of your document with the new changes you requested:
-
----
 
 # **Vinci App 🚀**
 
