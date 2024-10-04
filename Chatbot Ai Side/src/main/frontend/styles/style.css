@@ -1,0 +1,175 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at center, #2b2e4a, #903749);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    perspective: 1500px;
+}
+
+.content-container {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    transform: rotateX(10deg) rotateY(-10deg);
+    transition: transform 1s ease-in-out, box-shadow 0.8s;
+}
+
+.content-container:hover {
+    transform: rotateX(0deg) rotateY(0deg) scale(1.05);
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6);
+}
+
+.main-title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: #f9ed69;
+    text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+.ai-description {
+    max-width: 800px;
+    margin: 0 auto;
+    transition: opacity 0.8s ease-in-out, transform 0.8s;
+}
+
+.ai-description:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.description-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #f4f4f4;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+.description-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Toggle Button Styling */
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stacking buttons vertically */
+    gap: 10px; /* Space between buttons */
+    margin-top: 30px; /* Space above the button container */
+}
+
+.toggle-button {
+    padding: 8px 20px; /* Reduced padding for smaller buttons */
+    font-size: 0.9rem; /* Smaller font size */
+    background-color: #f9ed69;
+    color: #2b2e4a;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-button:hover {
+    background-color: #f08a5d;
+    transform: scale(1.05);
+}
+
+/* Bubble Effect */
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -100px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    animation: float 12s ease-in infinite;
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+    will-change: transform;
+}
+
+.bubbles.paused .bubble {
+    animation-play-state: paused;
+}
+
+/* Sizes and Positions for Bubbles */
+.bubble:nth-child(1) {
+    width: 60px;
+    height: 60px;
+    left: 20%;
+    animation-duration: 14s;
+    animation-delay: 2s;
+}
+
+.bubble:nth-child(2) {
+    width: 100px;
+    height: 100px;
+    left: 30%;
+    animation-duration: 18s;
+    animation-delay: 4s;
+}
+
+.bubble:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    left: 50%;
+    animation-duration: 12s;
+    animation-delay: 6s;
+}
+
+.bubble:nth-child(4) {
+    width: 120px;
+    height: 120px;
+    left: 70%;
+    animation-duration: 22s;
+    animation-delay: 8s;
+}
+
+.bubble:nth-child(5) {
+    width: 150px;
+    height: 150px;
+    left: 90%;
+    animation-duration: 25s;
+}
+
+/* Animal Bubbles */
+.animal-bubble {
+    background-image: url('path/to/your/animal-shape.png'); /* Add a URL to an animal shape */
+    background-size: cover; /* Ensures the image covers the bubble */
+    border-radius: 50%;
+}
+
+/* Float Animation for Bubbles */
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-300px) scale(1.1);
+    }
+    100% {
+        transform: translateY(-600px) scale(1);
+    }
+}

@@ -1,0 +1,206 @@
+.chatbox {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    width: 75vw;
+    height: 75vh;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    position: relative; /* Allows positioning of bubbles and buttons */
+    overflow: hidden; /* Ensures bubbles stay within the container */
+}
+
+h3 {
+    font-size: 2rem;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.clear-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clear-btn:hover {
+    background-color: #f08a5d;
+}
+
+.response-area {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+    padding-bottom: 0.5cm;
+}
+
+.response-area::-webkit-scrollbar {
+    width: 10px;
+}
+
+.response-area::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.response-area::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.response-area {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2);
+}
+
+.empty-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+.message {
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 5px 10px 0;
+    max-width: 60%;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+}
+
+.message.user {
+    background-color: rgba(255, 255, 255, 0.3);
+    align-self: flex-end;
+    text-align: right;
+}
+
+.message.ai {
+    background-color: rgba(255, 255, 255, 0.5);
+    align-self: flex-start;
+    text-align: left;
+}
+
+.message-text {
+    color: #000000;
+    font-weight: bold;
+}
+
+.message-date {
+    color: #000000;
+    font-weight: normal;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    display: block;
+}
+
+.input-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.send-btn:hover {
+    background-color: #45a049;
+}
+
+/* Bubbles for aesthetic effect */
+.bubble {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: bubbleAnimation 8s ease-in-out infinite;
+    z-index: 0; /* Make sure it's behind the content but not fully hidden */
+    pointer-events: none; /* Ensure bubbles don't interfere with UI interactions */
+}
+
+/* Variations in sizes, speed, and position */
+.bubble:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    bottom: -50px;
+    left: 20%;
+    animation-duration: 12s;
+}
+
+.bubble:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    bottom: -30px;
+    left: 50%;
+    animation-duration: 10s;
+}
+
+.bubble:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    bottom: -40px;
+    left: 80%;
+    animation-duration: 14s;
+}
+
+.bubble:nth-child(4) {
+    width: 40px;
+    height: 40px;
+    bottom: -20px;
+    left: 10%;
+    animation-duration: 11s;
+}
+
+@keyframes bubbleAnimation {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh); /* Moves bubble upwards */
+        opacity: 0;
+    }
+}
