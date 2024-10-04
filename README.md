@@ -2,7 +2,7 @@
 # **Vinci App 🚀**
 
 **Overview:**
-Vinci App is a modern web application developed during my internship at Vinci, under the guidance of Axians. It has two main components:
+Vinci App is a modern web application developed during my internship at Vinci Energies Morocco, under the guidance of Axians. It has two main components:
 
 - **Admin Side**: For managing user accounts, roles, permissions, and material stocks.
 - **AI Chat Side**: Leveraging React.js, Vaadin, Spring AI, and PVGStore to provide an intelligent AI chatbot interface using advanced tools like Olama and RAG.
