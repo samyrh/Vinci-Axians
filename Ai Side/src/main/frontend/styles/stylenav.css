@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: radial-gradient(circle at center, #2b2e4a, #903749); /* Background matching your existing style */
+}
+
+nav {
+    background: rgba(255, 255, 255, 0.15); /* Semi-transparent background for the nav */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 {
+    color: #000000; /* Title color to match your theme */
+    margin: 0;
+    font-size: 2rem;
+}
+
+nav div {
+    display: flex;
+    gap: 15px; /* Space between links */
+}
+
+nav a {
+    color: #f4f4f4; /* Link color */
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #f08a5d; /* Hover color */
+    color: #2b2e4a; /* Change text color on hover */
+}
+
+main {
+    flex: 1; /* Take up remaining space */
+    padding: 20px;
+    color: white; /* Ensure text is readable against the background */
+}
